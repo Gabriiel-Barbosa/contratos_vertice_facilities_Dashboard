@@ -1,0 +1,822 @@
+table _Medidas
+	lineageTag: 218fc37d-75e2-524b-a2d3-40b10bddc76a
+
+	measure 'Data Referência' = MAX(Parametros[Data_Referencia])
+		formatString: "dd/mm/yyyy"
+		displayFolder: 1. Carteira
+		lineageTag: 2006142e-91f9-573b-9ade-afa55b3e3c0d
+
+	/// Contratos ativos na data-base.
+	measure 'Contratos Vigentes' = SUM(fCarteira[Vigente]) + 0
+		formatString: "#,0"
+		displayFolder: 1. Carteira
+		lineageTag: 92f494a3-3e91-5c55-905d-9ee5bf1b85db
+
+	/// Valor mensal dos contratos vigentes. Não é faturamento.
+	measure 'Receita Mensal Contratada' = CALCULATE(SUM(fCarteira[Valor mensal]), fCarteira[Vigente] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 1. Carteira
+		lineageTag: 66b5097a-bc3b-57ad-abc2-10c38a398139
+
+	measure 'Receita Anualizada' = CALCULATE(SUM(fCarteira[Receita anualizada]), fCarteira[Vigente] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 1. Carteira
+		lineageTag: 77888f30-a22d-5675-ba19-da989fae9846
+
+	measure 'Custo Direto Mensal' = CALCULATE(SUM(fCarteira[Custo direto estimado]), fCarteira[Vigente] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 1. Carteira
+		lineageTag: 1786ac70-2e06-5b93-996b-1be89b9f0a9a
+
+	/// Margem de contribuição estimada. Não é lucro.
+	measure 'Margem Mensal' = CALCULATE(SUM(fCarteira[Margem mensal]), fCarteira[Vigente] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 1. Carteira
+		lineageTag: 5601ce0c-593e-59ff-8a42-5c360becaa7f
+
+	measure 'Margem %' = DIVIDE([Margem Mensal], [Receita Mensal Contratada])
+		formatString: "0.00%"
+		displayFolder: 1. Carteira
+		lineageTag: 5be2bd51-154b-5975-b808-00f59deba0d3
+
+	measure 'Clientes Ativos' = COUNTROWS(FILTER(VALUES(dCliente[Cliente ID]), [Receita Mensal Contratada] > 0)) + 0
+		formatString: "#,0"
+		displayFolder: 1. Carteira
+		lineageTag: 6dd5c765-e56c-5ca6-a9f6-7afb19ec77db
+
+	measure 'Receita Top 5 Clientes' = SUMX(TOPN(5, VALUES(dCliente[Cliente ID]), [Receita Mensal Contratada], DESC), [Receita Mensal Contratada])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 1. Carteira
+		lineageTag: d8eac5d7-c75a-51c5-8937-f5e23af34a9c
+
+	measure 'Participação Top 5' = DIVIDE([Receita Top 5 Clientes], [Receita Mensal Contratada])
+		formatString: "0.00%"
+		displayFolder: 1. Carteira
+		lineageTag: 90572d3c-dc65-5868-8c28-69525c30a46e
+
+	measure 'Participação no Total' = DIVIDE([Receita Mensal Contratada], CALCULATE([Receita Mensal Contratada], ALL(dCliente), ALL(dContrato), ALL(dSegmento)))
+		formatString: "0.0%"
+		displayFolder: 1. Carteira
+		lineageTag: 6475f902-f5a4-52a2-a210-32e8e5bbfbdf
+
+	measure 'Contratos Abaixo da Margem' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Vigente] = 1, fCarteira[Sinal margem] <> "Dentro do limite") + 0
+		formatString: "#,0"
+		displayFolder: 1. Carteira
+		lineageTag: c27e5671-11b5-55c9-8d65-5c9e862c50b1
+
+	measure 'Contratos com Plano' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Exige plano diretoria] = "Sim") + 0
+		formatString: "#,0"
+		displayFolder: 1. Carteira
+		lineageTag: cf1291e8-3352-575a-8d2b-4efc4f3d913f
+
+	measure 'Segmento Líder' = MAXX(TOPN(1, VALUES(dSegmento[Segmento]), [Receita Mensal Contratada], DESC), dSegmento[Segmento])
+		displayFolder: 1. Carteira
+		lineageTag: 40c33b52-2605-57ec-8246-1d3c12c18df4
+
+	measure 'Margem Mínima' = MAX(Parametros[Margem_Minima])
+		formatString: "0%"
+		displayFolder: 1. Carteira
+		lineageTag: 05e2e655-1cca-5eb2-b9a7-5cb4efa64e8d
+
+	measure 'Receita Maiores Clientes' = IF(RANKX(ALLSELECTED(dCliente[Nome fantasia]), [Receita Mensal Contratada],, DESC) <= 5, [Receita Mensal Contratada])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 1. Carteira
+		lineageTag: b184af1f-a706-5353-a35f-c3a4f93eda2a
+
+	measure 'Vencem em 30 Dias' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Vigente] = 1, fCarteira[Dias para vencimento] >= 0, fCarteira[Dias para vencimento] <= 30) + 0
+		formatString: "#,0"
+		displayFolder: 2. Vigência
+		lineageTag: d97deb10-c476-52c8-a162-b56cce5ebd84
+
+	measure 'Vencem em 60 Dias' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Vigente] = 1, fCarteira[Dias para vencimento] >= 0, fCarteira[Dias para vencimento] <= 60) + 0
+		formatString: "#,0"
+		displayFolder: 2. Vigência
+		lineageTag: 7201def7-8018-5edb-94da-e48608e70e77
+
+	measure 'Vencem em 90 Dias' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Vigente] = 1, fCarteira[Dias para vencimento] >= 0, fCarteira[Dias para vencimento] <= 90) + 0
+		formatString: "#,0"
+		displayFolder: 2. Vigência
+		lineageTag: 3f0a46da-aff7-5531-b370-e05bb5bab266
+
+	measure 'Vencem em 180 Dias' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Vigente] = 1, fCarteira[Dias para vencimento] >= 0, fCarteira[Dias para vencimento] <= 180) + 0
+		formatString: "#,0"
+		displayFolder: 2. Vigência
+		lineageTag: 69837717-02e5-5ecf-bde3-c58a04341fe1
+
+	measure 'Receita a Vencer 180 Dias' = CALCULATE(SUM(fCarteira[Valor mensal]), fCarteira[Vigente] = 1, fCarteira[Dias para vencimento] >= 0, fCarteira[Dias para vencimento] <= 180)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 2. Vigência
+		lineageTag: cb01b38d-4dfb-56a2-9d7c-815516a9f810
+
+	measure 'Receita a Vencer 180 Dias %' = DIVIDE([Receita a Vencer 180 Dias], [Receita Mensal Contratada])
+		formatString: "0.00%"
+		displayFolder: 2. Vigência
+		lineageTag: cdc53797-de94-5d96-9221-af3942c86ebf
+
+	measure 'Renovações Decisão Imediata' = CALCULATE(COUNTROWS(fRenovacoes), fRenovacoes[Decisão imediata] = "Sim") + 0
+		formatString: "#,0"
+		displayFolder: 3. Renovação
+		lineageTag: 1b831e42-64a6-5bb6-b10e-7ddb69fd9b23
+
+	measure 'Valor em Renovações Abertas' = CALCULATE(SUM(fRenovacoes[Valor mensal atual]), fRenovacoes[Aberta] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 3. Renovação
+		lineageTag: 6166ab78-182d-52a3-93e5-10c8db4a1be4
+
+	measure Renovados = CALCULATE(COUNTROWS(fRenovacoes), fRenovacoes[Status renovação] = "Renovado") + 0
+		formatString: "#,0"
+		displayFolder: 3. Renovação
+		lineageTag: 93626075-8eb4-5c4d-b949-4ebbe00005ea
+
+	measure 'Não Renovados' = CALCULATE(COUNTROWS(fRenovacoes), fRenovacoes[Status renovação] = "Não renovado") + 0
+		formatString: "#,0"
+		displayFolder: 3. Renovação
+		lineageTag: b106e7d8-f8bc-56d9-835d-bab84d9925d1
+
+	measure 'Taxa de Renovação' = DIVIDE([Renovados], [Renovados] + [Não Renovados], 0)
+		formatString: "0.00%"
+		displayFolder: 3. Renovação
+		lineageTag: e9331a5b-78d3-59eb-9b1a-53fa269d827e
+
+	measure 'Valor Retido por Renovação' = CALCULATE(SUM(fRenovacoes[Valor renovado]), fRenovacoes[Status renovação] = "Renovado")
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 3. Renovação
+		lineageTag: 7407633d-d16f-5931-a15b-f3bae1262a1a
+
+	measure 'Valor Perdido sem Renovação' = CALCULATE(SUM(fRenovacoes[Valor mensal atual]), fRenovacoes[Status renovação] = "Não renovado")
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 3. Renovação
+		lineageTag: 6963bde9-ba91-57d5-a522-3f2e8f09d997
+
+	measure 'Antecedência Média' = AVERAGE(fRenovacoes[Antecedência decisão dias])
+		formatString: "0.0"
+		displayFolder: 3. Renovação
+		lineageTag: 1ebc3db2-932e-58b2-9f0e-47e88200db07
+
+	measure 'Eventos Abertos' = SUM(fEventos[Aberto]) + 0
+		formatString: "#,0"
+		displayFolder: 4. Reajustes
+		lineageTag: ec9668fe-49a2-5d20-b4fe-d968a7a76680
+
+	measure 'Acréscimo em Análise' = CALCULATE(SUM(fEventos[Acréscimo mensal]), fEventos[Status evento] = "Em análise")
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 4. Reajustes
+		lineageTag: b5b00345-2e5d-5076-a743-a4ce92bdc371
+
+	measure 'Acréscimo Eventos Abertos' = CALCULATE(SUM(fEventos[Acréscimo mensal]), fEventos[Aberto] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 4. Reajustes
+		lineageTag: c3a37571-ddd8-5f36-88af-e1851fea2f10
+
+	/// Estimativa sujeita às cláusulas contratuais.
+	measure 'Retroativo Estimado' = SUM(fEventos[Retroativo estimado])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 4. Reajustes
+		lineageTag: 298f242a-ffdb-545c-b18d-d4fb1781cf1d
+
+	measure 'Data-base sem Evento' = CALCULATE(COUNTROWS(fCarteira), fCarteira[Vigente] = 1, fCarteira[Situação reajuste] = "Sem evento registrado") + 0
+		formatString: "#,0"
+		displayFolder: 4. Reajustes
+		lineageTag: 0b78fda8-00eb-5af5-a157-090733bbf02e
+
+	measure 'Obrigações Vencidas' = CALCULATE(COUNTROWS(fObrigacoes), fObrigacoes[Situação prazo] = "Vencida") + 0
+		formatString: "#,0"
+		displayFolder: 5. Operação e Riscos
+		lineageTag: 36e133a4-61ef-5636-b190-27dd0af548aa
+
+	measure 'Glosas 12 Meses' = CALCULATE(SUM(fOcorrencias[Valor glosa]), FILTER(ALL(fOcorrencias[Data]), fOcorrencias[Data] >= EDATE([Data Referência], -12)))
+		formatString: "\R$ #,0.00;-\R$ #,0.00"
+		displayFolder: 5. Operação e Riscos
+		lineageTag: 7395c11f-ffb3-50df-abfd-502e20a17b3f
+
+	measure 'Contrato com Mais Ocorrências' = MAXX(TOPN(1, FILTER(fCarteira, fCarteira[Ocorrências 12m] > 0), fCarteira[Ocorrências 12m], DESC), fCarteira[ID contrato])
+		displayFolder: 5. Operação e Riscos
+		lineageTag: e377cfa7-70ac-5ab4-8bbe-a595a2ad9290
+
+	measure 'Ocorrências Registradas' = CALCULATE(COUNTROWS(fOcorrencias), fOcorrencias[Tipo registro] = "Ocorrência") + 0
+		formatString: "#,0"
+		displayFolder: 5. Operação e Riscos
+		lineageTag: 8ba55cb3-8653-5380-819c-2761a78b5347
+
+	measure 'Registros Abertos' = SUM(fOcorrencias[Aberta]) + 0
+		formatString: "#,0"
+		displayFolder: 5. Operação e Riscos
+		lineageTag: 29bc4dd0-323d-555f-b380-a49c3767b8d2
+
+	measure 'Riscos e Ocorrências' = COUNTROWS(fOcorrencias)
+		formatString: "#,0"
+		displayFolder: 5. Operação e Riscos
+		lineageTag: 73b2dc2a-a206-5fda-b002-2a9e8e4549cc
+
+	measure 'Registros Graves Abertos' = CALCULATE(COUNTROWS(fOcorrencias), fOcorrencias[Aberta] = 1, fOcorrencias[Severidade] IN {"Crítica", "Alta"}) + 0
+		formatString: "#,0"
+		displayFolder: 5. Operação e Riscos
+		lineageTag: 8ffb46b9-326d-5818-a267-df551def4891
+
+	measure 'Oportunidades Abertas' = SUM(fOportunidades[Aberta]) + 0
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: b02cf972-5528-52d0-94b4-7e0a9be57539
+
+	/// R$/ano. Não compõe a carteira contratada.
+	measure 'Pipeline Nominal' = CALCULATE(SUM(fOportunidades[Valor anual estimado]), fOportunidades[Aberta] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 6. Comercial
+		lineageTag: 98980361-dc2f-5876-a4f6-ec8fe6ba0de5
+
+	/// Potencial ponderado pela probabilidade. Não é receita garantida.
+	measure 'Pipeline Ponderado' = CALCULATE(SUM(fOportunidades[Valor anual ponderado]), fOportunidades[Aberta] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 6. Comercial
+		lineageTag: 0fa006e9-db0c-592b-b6db-f9bae83ec9f4
+
+	measure 'BIDs em 7 Dias' = CALCULATE(COUNTROWS(fOportunidades), fOportunidades[Alerta] = "Ação em até 7 dias") + 0
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: c4bfa6a1-d371-566f-a1e2-e6e209e7df72
+
+	measure 'Oportunidades Paradas' = CALCULATE(COUNTROWS(fOportunidades), fOportunidades[Alerta] = "Sem atualização") + 0
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: 626777ec-380f-5c2f-a136-c520b96c2017
+
+	measure 'Propostas Abaixo da Margem' = CALCULATE(COUNTROWS(fOportunidades), fOportunidades[Aberta] = 1, fOportunidades[Sinal margem] = "Abaixo do limite") + 0
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: 004c8f76-6932-5a3c-bd1d-d786eef4f9bd
+
+	measure 'Oportunidades Ganhas' = CALCULATE(COUNTROWS(fOportunidades), fOportunidades[Resultado] = "Ganha") + 0
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: fbdf0c70-3c31-5a30-b8f5-b823596d4154
+
+	measure 'Oportunidades Concluídas' = CALCULATE(COUNTROWS(fOportunidades), fOportunidades[Resultado] IN {"Ganha", "Perdida", "Desclassificada"}) + 0
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: 0c902225-0e36-5ed0-9026-3b620f069fac
+
+	measure 'Taxa de Conversão' = DIVIDE([Oportunidades Ganhas], [Oportunidades Concluídas], 0)
+		formatString: "0.00%"
+		displayFolder: 6. Comercial
+		lineageTag: 62b64924-5a05-58d5-9c66-3b60291cd3b6
+
+	measure 'Valor Propostas Perdidas' = CALCULATE(SUM(fOportunidades[Valor anual estimado]), fOportunidades[Resultado] = "Perdida")
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 6. Comercial
+		lineageTag: 0497a147-44fd-5e9f-974c-fb5939025bea
+
+	measure 'Propostas por Motivo' = CALCULATE(COUNTROWS(fOportunidades), KEEPFILTERS(fOportunidades[Motivo perda] <> ""))
+		formatString: "#,0"
+		displayFolder: 6. Comercial
+		lineageTag: 4b8179a0-33c5-5685-9475-62f2cda1bbe2
+
+	measure 'Contratos Encerrados' = COUNTROWS(fEncerrados) + 0
+		formatString: "#,0"
+		displayFolder: 7. Perdas
+		lineageTag: e5f2d3f5-a77f-5fc3-82bb-f1822b6bf2ea
+
+	measure 'Receita Perdida Histórico' = SUM(fEncerrados[Valor mensal perdido])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 7. Perdas
+		lineageTag: 62728753-1bbf-5ce0-9059-a8007e8492da
+
+	measure 'Receita Perdida 12 Meses' = CALCULATE(SUM(fEncerrados[Valor mensal perdido]), fEncerrados[Perda 12m] = 1)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 7. Perdas
+		lineageTag: fd2ab53c-d43d-5d47-8306-fbc21abfd7af
+
+	measure 'Receita Anual Perdida' = SUM(fEncerrados[Valor anualizado perdido])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 7. Perdas
+		lineageTag: 829fc08a-c997-52e0-a9d1-b8f37be69f7c
+
+	measure 'Nota Média de Desempenho' = AVERAGE(fEncerrados[Nota desempenho])
+		formatString: "0.0"
+		displayFolder: 7. Perdas
+		lineageTag: 11848f6e-eb07-518c-bdfe-cf017861966b
+
+	measure 'Receita Prevista' = SUM(fFinanceiro[Receita prevista])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: 27e74154-ac39-599c-8728-58fc98a42e2f
+
+	measure 'Receita Faturada' = SUM(fFinanceiro[Receita faturada])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: 0e904be3-a3e1-5c49-8edd-ae34776e319d
+
+	measure 'Receita Recebida' = SUM(fFinanceiro[Receita recebida])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: 4ff23e6a-94eb-5cc4-bf49-4ca71eab4d8a
+
+	measure 'Custo Direto Realizado' = SUM(fFinanceiro[Custo total])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: e4d9e899-b69d-53a6-b2f1-f1e28408a68c
+
+	measure 'Margem Realizada' = SUM(fFinanceiro[Margem estimada])
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: 4a8e3f03-e86a-58a5-a928-9bd31ea4160e
+
+	measure 'Margem Realizada %' = DIVIDE([Margem Realizada], [Receita Faturada])
+		formatString: "0.0%"
+		displayFolder: 8. Financeiro
+		lineageTag: c36f1370-c2b4-51ba-b3ab-31bad41f721d
+
+	measure 'A Receber' = [Receita Faturada] - [Receita Recebida]
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: 4786dba3-d8fc-5968-8fd1-da92f4d821e2
+
+	measure 'Última Competência' = VAR Ref = [Data Referência] VAR Comp = EDATE(DATE(YEAR(Ref), MONTH(Ref), 1), -1) RETURN CALCULATE(SUM(fFinanceiro[Receita prevista]), fFinanceiro[Competência] = Comp)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 8. Financeiro
+		lineageTag: 302a6c9d-c7c1-55c1-9ae4-de1cfa5555b5
+
+	measure 'Texto Data-base' = "Data-base: " & FORMAT([Data Referência], "dd/mm/yyyy")
+		displayFolder: 9. Apresentação
+		lineageTag: df9dc236-0adf-56bc-9771-7a949be27189
+
+	measure 'Cor Margem' = IF([Margem %] < [Margem Mínima], "#D96C5F", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: 9344b81e-66e4-5812-868e-c4733af7d5e1
+
+	measure 'Cor Situação Prazo' = SWITCH(SELECTEDVALUE(fObrigacoes[Situação prazo]), "Vencida", "#D96C5F", "Vence em breve", "#E6B85C", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: 814fbda7-c8fb-515c-9fd0-38a0fac119f4
+
+	measure 'Cor Matriz' = VAR P = MAX(fOcorrencias[Ordem probabilidade]) * MAX(fOcorrencias[Ordem impacto]) RETURN IF([Riscos e Ocorrências] > 0, IF(P >= 6, "#D96C5F", IF(P >= 3, "#E6B85C", "#2E8B78")), "#F2F4F5")
+		displayFolder: 9. Apresentação
+		lineageTag: 373065d0-e904-5bac-ac44-a2e38f6b6a98
+
+	measure 'Cor Severidade' = SWITCH(SELECTEDVALUE(fOcorrencias[Severidade]), "Crítica", "#D96C5F", "Alta", "#D96C5F", "Média", "#E6B85C", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: 1fc2080c-e04c-556f-92cd-3a3686e9d2fc
+
+	measure 'Prevista Mês' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -1) RETURN CALCULATE(SUM(fFinanceiro[Receita prevista]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 88b96668-4a4f-5fa0-b56c-11f3cac14791
+
+	measure 'Prevista Mês Anterior' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -2) RETURN CALCULATE(SUM(fFinanceiro[Receita prevista]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 39c8956b-35e3-559a-8b32-141582e9ec2d
+
+	measure 'Prevista 12 Meses Antes' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -12) RETURN CALCULATE(SUM(fFinanceiro[Receita prevista]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: eaa64bfa-0b7d-5cd8-90cb-3633c519d8b0
+
+	measure 'Faturada Mês' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -1) RETURN CALCULATE(SUM(fFinanceiro[Receita faturada]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: fb2e3fcd-9c4c-5a71-b678-25d45e8dac10
+
+	measure 'Faturada Mês Anterior' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -2) RETURN CALCULATE(SUM(fFinanceiro[Receita faturada]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 197cd87b-3969-56fa-97d5-6d4f5df4f146
+
+	measure 'Custo Mês' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -1) RETURN CALCULATE(SUM(fFinanceiro[Custo total]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 9da1986c-ede0-53ac-ab51-eb44b8f47e20
+
+	measure 'Custo Mês Anterior' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -2) RETURN CALCULATE(SUM(fFinanceiro[Custo total]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 4aa1b5e1-c89f-5ad9-92c2-dff113df987a
+
+	measure 'Margem Mês' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -1) RETURN CALCULATE(SUM(fFinanceiro[Margem estimada]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 441bff11-b9ec-5c72-917a-5e4a81cb0cbf
+
+	measure 'Margem Mês Anterior' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -2) RETURN CALCULATE(SUM(fFinanceiro[Margem estimada]), fFinanceiro[Competência] = C)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 65b65624-6bf8-5f13-b5ff-ca08a7963be6
+
+	measure 'Margem Mês %' = DIVIDE([Margem Mês], [Faturada Mês])
+		formatString: "0.00%"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 4b760a8c-8245-56d9-83f0-265d4266eb7f
+
+	measure 'Margem Mês Anterior %' = DIVIDE([Margem Mês Anterior], [Faturada Mês Anterior])
+		formatString: "0.00%"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 2c7b3cad-c62e-5400-ad23-018968e2cdc3
+
+	measure 'Var Prevista Mês' = DIVIDE([Prevista Mês], [Prevista Mês Anterior]) - 1
+		formatString: "0.0%"
+		displayFolder: 9.1 Comparativos
+		lineageTag: c4291ff5-d031-53c7-9db1-097f030245b3
+
+	measure 'Var Prevista 12 Meses' = DIVIDE([Prevista Mês], [Prevista 12 Meses Antes]) - 1
+		formatString: "0.0%"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 9cf32c4d-2d2a-5a54-996d-66a4e1a01f83
+
+	measure 'Var Custo Mês' = DIVIDE([Custo Mês], [Custo Mês Anterior]) - 1
+		formatString: "0.0%"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 14ddd10c-8d7b-52dc-b128-b01262da4765
+
+	measure 'Var Margem Mês' = DIVIDE([Margem Mês], [Margem Mês Anterior]) - 1
+		formatString: "0.0%"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 74560ae6-2b5c-54a6-8b3b-35fdbce6a959
+
+	measure 'Var Margem p.p.' = ([Margem Mês %] - [Margem Mês Anterior %]) * 100
+		formatString: "0.00"
+		displayFolder: 9.1 Comparativos
+		lineageTag: 6f068f95-77f9-5dee-9508-7e26b0027ed6
+
+	measure 'Nome Mês Anterior' = FORMAT(EDATE([Data Referência], -2), "mmm/yy", "pt-BR")
+		displayFolder: 9.1 Comparativos
+		lineageTag: fd9e54cd-ace1-578d-84e2-e4b091c92c2c
+
+	measure 'Sub Contratos' = VAR A = [Contratos no Mês] VAR B = [Contratos no Mês Anterior] RETURN IF(A > B, "▲ ", IF(A < B, "▼ ", "= ")) & FORMAT(ABS(A - B), "0") & " vs " & [Nome Mês Anterior]
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 35449cd0-6bb4-5935-86b1-a2d0d482411d
+
+	measure 'Contratos no Mês' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -1) RETURN CALCULATE(DISTINCTCOUNT(fFinanceiro[ID contrato]), fFinanceiro[Competência] = C)
+		formatString: "#,0"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: edc21461-9479-57a9-b9cb-51f2829c0564
+
+	measure 'Contratos no Mês Anterior' = VAR C = EDATE(DATE(YEAR([Data Referência]), MONTH([Data Referência]), 1), -2) RETURN CALCULATE(DISTINCTCOUNT(fFinanceiro[ID contrato]), fFinanceiro[Competência] = C)
+		formatString: "#,0"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 4e6c7415-88b5-53c0-b6cf-f32157be5d7f
+
+	measure 'Sub Receita' = IF([Var Prevista Mês] > 0.00005, "▲ ", IF([Var Prevista Mês] < -0.00005, "▼ ", "= ")) & FORMAT(ABS([Var Prevista Mês]), "0.0%") & " vs " & [Nome Mês Anterior]
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 62360a0e-c262-5e9f-9115-6e954a66afe6
+
+	measure 'Sub Margem' = "Realizada " & FORMAT([Margem Mês %], "0.0%") & "  " & IF([Var Margem p.p.] > 0.00005, "▲ ", IF([Var Margem p.p.] < -0.00005, "▼ ", "= ")) & FORMAT(ABS([Var Margem p.p.]), "0.00") & " p.p."
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 834d6670-74b2-54af-bc01-e17266573ee2
+
+	measure 'Sub Vencem 90' = FORMAT(DIVIDE(CALCULATE([Receita Mensal Contratada], fCarteira[Dias para vencimento] <= 90), [Receita Mensal Contratada]), "0.0%") & " da receita"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 461b199c-6f3f-5c21-8368-c41d96c83bab
+
+	measure 'Sub Eventos' = FORMAT([Acréscimo Eventos Abertos], "\R$ #,0") & "/mês a formalizar"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: e0e97026-e911-53ef-8193-2c7411a86e9e
+
+	measure 'Receita sob Plano' = CALCULATE(SUM(fCarteira[Valor mensal]), fCarteira[Exige plano diretoria] = "Sim")
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 0e410b3b-95d7-5344-9045-41acf1840609
+
+	measure 'Sub Plano' = FORMAT(DIVIDE([Receita sob Plano], [Receita Mensal Contratada]), "0.0%") & " da receita"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 18855793-5813-5dc6-966b-9e26d4beaeb4
+
+	measure 'Sub Anualizada' = IF([Var Prevista 12 Meses] > 0.00005, "▲ ", IF([Var Prevista 12 Meses] < -0.00005, "▼ ", "= ")) & FORMAT(ABS([Var Prevista 12 Meses]), "0.0%") & " em 12 meses"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 3f62837d-cdb6-5407-bc9d-230ed8bc75ab
+
+	measure 'Sub Custo' = IF([Var Custo Mês] > 0.00005, "▲ ", IF([Var Custo Mês] < -0.00005, "▼ ", "= ")) & FORMAT(ABS([Var Custo Mês]), "0.0%") & " vs " & [Nome Mês Anterior]
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 915f3680-7f66-5fd1-8fa1-40d06536a009
+
+	measure 'Sub Margem R$' = IF([Var Margem Mês] > 0.00005, "▲ ", IF([Var Margem Mês] < -0.00005, "▼ ", "= ")) & FORMAT(ABS([Var Margem Mês]), "0.0%") & " vs " & [Nome Mês Anterior]
+		displayFolder: 9.2 Subtítulos
+		lineageTag: a37147dd-33d4-5801-9cec-b32254355805
+
+	measure 'Sub Abaixo Margem' = FORMAT(CALCULATE([Receita Mensal Contratada], fCarteira[Sinal margem] <> "Dentro do limite"), "\R$ #,0") & "/mês"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 213a5583-2698-58f1-b04e-3a46437352f6
+
+	measure 'Maior Cliente %' = MAXX(VALUES(dCliente[Cliente ID]), DIVIDE([Receita Mensal Contratada], CALCULATE([Receita Mensal Contratada], ALL(dCliente), ALL(dContrato))))
+		formatString: "0.0%"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 58488b43-78e3-5602-bf6a-781ee1c54011
+
+	measure 'Sub Top 5' = "Maior cliente: " & FORMAT([Maior Cliente %], "0.0%")
+		displayFolder: 9.2 Subtítulos
+		lineageTag: a3a5ec72-7631-5cda-a51f-aa846de9368f
+
+	measure 'Sub Clientes' = "de " & FORMAT(COUNTROWS(dCliente), "0") & " cadastrados"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: e70c4efa-a029-596d-b8c5-f646670757d3
+
+	measure 'Sub Vencem 60' = FORMAT(CALCULATE([Receita Mensal Contratada], fCarteira[Dias para vencimento] <= 60), "\R$ #,0") & "/mês"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: e061162c-0bf8-5938-8a54-c4df43d365d1
+
+	measure 'Sub Vencem 180' = "de " & FORMAT([Contratos Vigentes], "0") & " contratos"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 5dceafd4-bd86-586a-ab13-8966b93cb65b
+
+	measure 'Sub Receita 180' = FORMAT([Receita a Vencer 180 Dias %], "0.0%") & " da receita"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 68bf6049-fc76-5f10-a8f9-c9570ec0bfbb
+
+	measure 'Próximo Limite' = CALCULATE(MIN(fRenovacoes[Data limite decisão]), fRenovacoes[Aberta] = 1)
+		formatString: "dd/mm/yyyy"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: cfc1961a-6a68-5678-978d-a222f6594ff7
+
+	measure 'Sub Decisão' = "Próximo limite " & FORMAT([Próximo Limite], "dd/mm/yy")
+		displayFolder: 9.2 Subtítulos
+		lineageTag: e4ce995b-2ae0-582e-83da-74480fe00c9a
+
+	measure 'Sub Renovações' = FORMAT(CALCULATE(COUNTROWS(fRenovacoes), fRenovacoes[Aberta] = 1) + 0, "0") & " ciclos abertos"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: cce8b21d-93cb-5c9a-ab3e-4936cca1d926
+
+	measure 'Sub Taxa Renovação' = FORMAT([Renovados], "0") & " de " & FORMAT([Renovados] + [Não Renovados], "0") & " ciclos"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 2fc3d285-e856-5883-8292-7f66216376ee
+
+	measure 'Sub Acréscimo' = "+" & FORMAT(DIVIDE([Acréscimo Eventos Abertos], [Receita Mensal Contratada]), "0.0%") & " sobre a receita"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: a96fb76c-3313-50b1-be01-6697f760f2a4
+
+	measure 'Sub Retroativo' = "Sujeito às cláusulas"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: d6adc767-0c91-5869-bc70-df17713aa16e
+
+	measure 'Sub Data-base' = FORMAT(CALCULATE([Receita Mensal Contratada], fCarteira[Situação reajuste] = "Sem evento registrado"), "\R$ #,0") & "/mês sem pedido"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 3f2b0faa-8cd8-5e6d-a178-57972ae8f981
+
+	measure 'Sub Obrigações' = "de " & FORMAT(COUNTROWS(fObrigacoes), "0") & " obrigações"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 60e0fcc9-8bf7-5a90-9e61-2f303abd7677
+
+	measure 'Sub Graves' = "de " & FORMAT([Registros Abertos], "0") & " registros abertos"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 241c547c-8075-5318-907f-46d5fb562fbe
+
+	measure 'Sub Glosas' = FORMAT(DIVIDE([Glosas 12 Meses], SUM(fFinanceiro[Receita faturada])), "0.00%") & " do faturado"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 3d18b5b2-31f1-567e-9d21-fefaa083fbcd
+
+	measure 'Sub Oportunidades' = "de " & FORMAT(COUNTROWS(fOportunidades), "0") & " no histórico"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: e20d4303-08c9-5922-9a0f-27893e86956b
+
+	measure 'Sub Nominal' = FORMAT([Pipeline Nominal] / 12, "\R$ #,0") & "/mês potencial"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 9c55e3e3-33a5-5a48-8d6e-0301b2be5797
+
+	measure 'Sub Ponderado' = FORMAT(DIVIDE([Pipeline Ponderado], [Pipeline Nominal]), "0.0%") & " do nominal"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 2f9418c7-903d-5387-9c9b-34becf957092
+
+	measure 'Sub Conversão' = FORMAT([Oportunidades Ganhas], "0") & " de " & FORMAT([Oportunidades Concluídas], "0") & " concluídas"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 76198e3d-98a8-5da0-8e91-c2a5b7419433
+
+	measure 'Sub BIDs' = "Próximo prazo " & FORMAT(CALCULATE(MIN(fOportunidades[Próximo prazo]), fOportunidades[Aberta] = 1), "dd/mm/yy")
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 9da2c0a8-bbfc-55d9-8fe6-5081b5c8a046
+
+	measure 'Sub Paradas' = "Acima de " & FORMAT(MAX(Parametros[Dias_Sem_Atualizacao]), "0") & " dias"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: c0198d4a-8f5d-5749-b9b0-c95ac1c211c3
+
+	measure 'Sub Encerrados' = FORMAT(COUNTROWS(FILTER(fEncerrados, fEncerrados[Perda 12m] = 1)), "0") & " nos últimos 12 meses"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 94ccb7ac-d87d-5ec4-bfbc-700e30383b0b
+
+	measure 'Sub Perda Histórica' = FORMAT(DIVIDE([Receita Perdida Histórico], [Receita Mensal Contratada]), "0.0%") & " da carteira atual"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: b140bb63-d710-57e5-9d02-93cfa0efd305
+
+	measure 'Sub Perda 12' = FORMAT(DIVIDE([Receita Perdida 12 Meses], [Receita Mensal Contratada]), "0.0%") & " da carteira atual"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 007faf3f-3964-5250-afe2-6b46a4ef2611
+
+	measure 'Sub Perda Anual' = FORMAT(DIVIDE([Receita Anual Perdida], [Receita Anualizada]), "0.0%") & " da receita anualizada"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 0dc41b7e-7185-5db4-aa0b-51422a077bc0
+
+	measure 'Sub Propostas' = FORMAT(CALCULATE(COUNTROWS(fOportunidades), fOportunidades[Resultado] = "Perdida") + 0, "0") & " propostas perdidas"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 3f057e35-6e6b-5c78-a546-12a1deeddbe3
+
+	measure 'Sub Nota' = FORMAT(COUNTROWS(FILTER(fEncerrados, fEncerrados[Nota desempenho] < 6)), "0") & " abaixo de 6,0"
+		displayFolder: 9.2 Subtítulos
+		lineageTag: 63bc2c42-ee81-55f0-a330-f294820639d4
+
+	measure 'Cor Var Margem' = IF([Var Margem p.p.] < 0, "#D96C5F", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: 99561222-c5c2-5c5f-81c7-86198cb744d8
+
+	measure 'Cor Var Margem R$' = IF([Var Margem Mês] < 0, "#D96C5F", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: d70a0ae2-6dc2-5157-8338-296db32d59e6
+
+	measure 'Cor Var Receita' = IF([Var Prevista Mês] < 0, "#D96C5F", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: b3641a92-0402-5a6f-b9a1-5d7633be49da
+
+	measure 'Cor Var Custo' = IF([Var Custo Mês] > 0, "#D96C5F", "#2E8B78")
+		displayFolder: 9. Apresentação
+		lineageTag: 09079956-01c3-5123-881d-e4ebdb0a604f
+
+	measure 'TT Contrato' = SELECTEDVALUE(dContrato[Contrato], "Contratos selecionados")
+		displayFolder: 9.3 Tooltips
+		lineageTag: d130d14f-f9f1-5dec-8c51-c5add6d868b9
+
+	measure 'TT Objeto Gestor' = SELECTEDVALUE(dContrato[Objeto], "Vários objetos") & " · " & SELECTEDVALUE(dContrato[Gestor contrato], "Vários gestores")
+		displayFolder: 9.3 Tooltips
+		lineageTag: e4d8285e-fd01-5af1-9007-e4240fb49a2d
+
+	measure 'TT Dias' = MAX(fCarteira[Dias para vencimento])
+		formatString: "#,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: 7df4a542-a97e-5948-91ec-e98787f6e578
+
+	measure 'TT Fim' = MAX(dContrato[Fim vigência])
+		formatString: "dd/mm/yyyy"
+		displayFolder: 9.3 Tooltips
+		lineageTag: fbde88af-8cbe-5e6e-af7a-ca175ab0b091
+
+	measure 'TT Ocorrências' = SUM(fCarteira[Ocorrências 12m]) + 0
+		formatString: "#,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: fe87f721-e0a6-536c-ad7e-67e3e01c7fc3
+
+	measure 'TT Reajuste' = SELECTEDVALUE(fCarteira[Situação reajuste], "Vários")
+		displayFolder: 9.3 Tooltips
+		lineageTag: bd769bb9-c92e-5536-83cb-8950b0fd9cc7
+
+	measure 'TT Sinais' = VAR T = SELECTEDVALUE(fCarteira[Sinais atenção]) RETURN IF(T = "", "Sem sinais de atenção", T)
+		displayFolder: 9.3 Tooltips
+		lineageTag: da31ce21-b153-5e94-abcb-96a669da0d96
+
+	measure 'TT Segmento' = SELECTEDVALUE(dSegmento[Segmento], "Todos os segmentos")
+		displayFolder: 9.3 Tooltips
+		lineageTag: ede7eb93-9574-50c1-b993-cc342e7dcf2a
+
+	measure 'TT Cliente' = SELECTEDVALUE(dCliente[Nome fantasia], "Clientes selecionados")
+		displayFolder: 9.3 Tooltips
+		lineageTag: d2c69305-8269-5bb4-92bc-e0d23b0ef6dd
+
+	measure 'TT Cliente Info' = SELECTEDVALUE(dCliente[Segmento econômico], "") & " · " & SELECTEDVALUE(dCliente[Tipo cliente], "") & " · Classe " & SELECTEDVALUE(dCliente[Classificação relevância], "-")
+		displayFolder: 9.3 Tooltips
+		lineageTag: 4cdfa1a2-3db5-5142-b1f8-502c23d5e38f
+
+	measure 'TT Próximo Vencimento' = CALCULATE(MIN(dContrato[Fim vigência]), fCarteira[Vigente] = 1, CROSSFILTER(fCarteira[ID contrato], dContrato[ID contrato], BOTH))
+		formatString: "dd/mm/yyyy"
+		displayFolder: 9.3 Tooltips
+		lineageTag: 5eb830f7-2a6b-5ce6-86a8-9a0350ba5c0a
+
+	measure 'TT Mês' = SELECTEDVALUE(dCalendario[Mês], "Período selecionado")
+		displayFolder: 9.3 Tooltips
+		lineageTag: 0fe88334-0c6a-53d5-a7af-c38b3701ef11
+
+	measure 'TT Var Faturada' = DIVIDE([Receita Faturada], CALCULATE([Receita Faturada], DATEADD(dCalendario[Data], -1, MONTH))) - 1
+		formatString: "+0.0%;-0.0%;0.0%"
+		displayFolder: 9.3 Tooltips
+		lineageTag: dcdeb6ad-1fb3-5e6d-8a6b-437941332a64
+
+	measure 'TT Diferença Faturamento' = [Receita Prevista] - [Receita Faturada]
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: 06ea82ec-c840-5eea-a2aa-f09d0568bb91
+
+	measure 'TT Perda' = COALESCE(SELECTEDVALUE(fEncerrados[Motivo primário]), SELECTEDVALUE(fEncerrados[Responsabilidade predominante]), SELECTEDVALUE(dCalendario[Trimestre]), "Perdas selecionadas")
+		displayFolder: 9.3 Tooltips
+		lineageTag: 7f6ed83b-d244-5e53-8a9c-ec6bb75705b0
+
+	measure 'TT Participação Perda' = DIVIDE([Receita Perdida Histórico], CALCULATE([Receita Perdida Histórico], ALL(fEncerrados), ALL(dCalendario)))
+		formatString: "0.0%"
+		displayFolder: 9.3 Tooltips
+		lineageTag: cd367ad9-4055-5ef8-9f3a-df215deea88d
+
+	measure 'TT Pipeline' = COALESCE(SELECTEDVALUE(dEtapa[Etapa funil]), SELECTEDVALUE(dSegmento[Segmento]), "Pipeline selecionado")
+		displayFolder: 9.3 Tooltips
+		lineageTag: 7a9af404-13f1-5618-8fa0-3259cfc902fb
+
+	measure 'TT Probabilidade Média' = DIVIDE([Pipeline Ponderado], [Pipeline Nominal])
+		formatString: "0%"
+		displayFolder: 9.3 Tooltips
+		lineageTag: d48b2bbf-2dfa-57eb-832a-a6c490692b6d
+
+	measure 'TT Top Receita' = VAR V = [Receita Mensal Contratada] VAR R = RANKX(ALLSELECTED(dContrato[Contrato]), [Receita Mensal Contratada],, DESC, Dense) RETURN IF(NOT ISBLANK(V) && R <= 4, V)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: f9fa2f1b-7d82-5bf9-b785-c90b0ac9e151
+
+	measure 'TT Top Margem' = IF(NOT ISBLANK([TT Top Receita]), [Margem %])
+		formatString: "0.0%"
+		displayFolder: 9.3 Tooltips
+		lineageTag: 05048e81-ef26-5876-965b-5d4dbd68dcd7
+
+	measure 'TT Top Dias' = IF(NOT ISBLANK([TT Top Receita]), [TT Dias])
+		formatString: "#,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: a6de45cc-9730-57fb-9692-a91c26854b30
+
+	measure 'TT Top Perda' = VAR V = [Receita Perdida Histórico] VAR R = RANKX(ALLSELECTED(dContrato[Contrato]), [Receita Perdida Histórico],, DESC, Dense) RETURN IF(NOT ISBLANK(V) && R <= 4, V)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: b38f888d-8978-5835-bece-fbdc1710b387
+
+	measure 'TT Top Pipeline' = VAR V = [Pipeline Nominal] VAR R = RANKX(ALLSELECTED(fOportunidades[Nome oportunidade]), [Pipeline Nominal],, DESC, Dense) RETURN IF(NOT ISBLANK(V) && R <= 4, V)
+		formatString: "\R$ #,0;-\R$ #,0"
+		displayFolder: 9.3 Tooltips
+		lineageTag: be9c8493-62e4-5903-9684-1659c77235ea
+
+	measure 'TT Top Prob' = IF(NOT ISBLANK([TT Top Pipeline]), [TT Probabilidade Média])
+		formatString: "0%"
+		displayFolder: 9.3 Tooltips
+		lineageTag: baa2d8a0-c6eb-5a17-b8e8-c4f6d1e823f5
+
+	measure 'TT Reajuste Texto' = "Reajuste: " & [TT Reajuste]
+		displayFolder: 9.3 Tooltips
+		lineageTag: 5b093ba6-7494-5723-ab38-02e73c5e2228
+
+	measure 'Def Receita Mensal Contratada' = "Valor mensal previsto nos contratos vigentes. Não é faturamento nem recebimento."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 3320e188-18f3-51c6-97a2-1f0cd87340cc
+
+	measure 'Def Margem %' = "Margem de contribuição estimada: receita menos custo direto, sobre a receita. Não é lucro."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 0f5702c0-6b72-56e6-8650-d88ac885c6c5
+
+	measure 'Def Margem Mensal' = "Receita mensal menos custo direto estimado. Não inclui despesas administrativas nem tributos."
+		displayFolder: 9.4 Conceitos
+		lineageTag: e95b4ac0-557e-50a9-8fd8-f798120f8bd8
+
+	measure 'Def Receita Anualizada' = "Receita mensal contratada × 12. Serve para comparar porte, não é previsão de faturamento."
+		displayFolder: 9.4 Conceitos
+		lineageTag: d13dbd30-eefe-51f3-9d57-b047209be61f
+
+	measure 'Def Contratos com Plano' = "Contratos com 3 ou mais sinais: margem, vencimento, reajuste, obrigação vencida e ocorrência grave."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 526d0edb-ec36-51da-a171-ac9def4b52c5
+
+	measure 'Def Eventos Abertos' = "Reajustes e aditivos sem formalização. O novo valor só entra na receita depois de formalizado."
+		displayFolder: 9.4 Conceitos
+		lineageTag: c9cdd85a-04c1-5fed-9d43-ed4bf69f4965
+
+	measure 'Def Retroativo Estimado' = "Diferença acumulada desde a data-base nos eventos abertos. Estimativa sujeita às cláusulas."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 719598f0-0b6a-5dc6-8134-1a28b1a84a9a
+
+	measure 'Def Data-base sem Evento' = "Contratos que passaram da data-base sem pedido de reajuste registrado."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 1e4994bc-d4ab-5bb9-ab17-1c69a8bb43c2
+
+	measure 'Def Renovações Decisão Imediata' = "Renovações abertas com marco de 90 dias dentro da janela de 7 dias após a data-base."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 8c8fb2ae-694e-5c28-808d-b69db3caf624
+
+	measure 'Def Taxa de Renovação' = "Ciclos renovados sobre ciclos decididos. Decorre das premissas do cenário."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 80dcc1a9-7cfd-53d0-82de-8d4409d65ffa
+
+	measure 'Def Pipeline Nominal' = "Valor anual das oportunidades abertas. Não compõe a carteira contratada."
+		displayFolder: 9.4 Conceitos
+		lineageTag: f366b582-d39b-5c94-9235-e9cb65d73c21
+
+	measure 'Def Pipeline Ponderado' = "Valor anual × probabilidade. Potencial comercial, não receita garantida."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 8413f213-74b4-5e1a-970f-11aae9b94d3b
+
+	measure 'Def Taxa de Conversão' = "Ganhas sobre concluídas (ganhas, perdidas e desclassificadas). Canceladas ficam fora."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 2b6506ea-c91b-5a81-80c7-823a61fdfb1f
+
+	measure 'Def Glosas 12 Meses' = "Valor descontado da fatura por serviço não prestado ou em desacordo, nos últimos 12 meses."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 5548ccea-6e4f-51db-8536-b9d1dad681bb
+
+	measure 'Def Receita Perdida 12 Meses' = "Valor mensal dos contratos encerrados nos últimos 12 meses."
+		displayFolder: 9.4 Conceitos
+		lineageTag: d361658b-98f0-582f-9408-301f92bb6021
+
+	measure 'Def Valor Propostas Perdidas' = "Valor anual estimado das oportunidades perdidas. Receita potencial não capturada."
+		displayFolder: 9.4 Conceitos
+		lineageTag: 1c4d79d9-6355-5e0f-8f3a-62082fb90825
+
+	column Coluna
+		dataType: string
+		isHidden
+		lineageTag: c3e417e3-2b32-5f6e-8744-759101da746a
+		summarizeBy: none
+		sourceColumn: Coluna
+
+		annotation SummarizationSetBy = User
+
+	partition _Medidas = m
+		mode: import
+		source =
+				let
+					Tabela = #table(type table [Coluna = text], {})
+				in
+					Tabela
+
+	annotation PBI_ResultType = Table

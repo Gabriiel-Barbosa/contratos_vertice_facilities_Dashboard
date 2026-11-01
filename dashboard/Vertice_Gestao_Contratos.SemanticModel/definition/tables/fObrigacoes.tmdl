@@ -1,0 +1,88 @@
+table fObrigacoes
+	lineageTag: 1d1249f0-9f2b-5c9a-b206-269093a1a273
+
+	column 'Obrigação ID'
+		dataType: string
+		lineageTag: 614fc389-777b-598e-8a4e-a555835b30f9
+		summarizeBy: none
+		sourceColumn: Obrigação ID
+
+		annotation SummarizationSetBy = User
+
+	column 'ID contrato'
+		dataType: string
+		isHidden
+		lineageTag: 7ff34b59-b1de-53ac-8a4a-cd67c4e8d563
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'Descrição'
+		dataType: string
+		lineageTag: 29820537-d382-5de4-8266-cab2ad6eed77
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = User
+
+	column Tipo
+		dataType: string
+		lineageTag: d63640b0-2ed7-5975-9e9a-23e6ba7b7c17
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = User
+
+	column 'Responsável'
+		dataType: string
+		lineageTag: 23f8bb1f-212c-5a0a-9bb5-977b2036ce14
+		summarizeBy: none
+		sourceColumn: Responsável
+
+		annotation SummarizationSetBy = User
+
+	column Prazo
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 5f04fd06-4b58-5dd8-8a99-4aa327564879
+		summarizeBy: none
+		sourceColumn: Prazo
+
+		annotation SummarizationSetBy = User
+
+	column Status
+		dataType: string
+		lineageTag: 95b9c643-6dd3-5b86-991c-99e82d22d6fd
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = User
+
+	column Criticidade
+		dataType: string
+		lineageTag: 3fdd61e9-c0e3-5eb1-a0c8-7569a674ba46
+		summarizeBy: none
+		sourceColumn: Criticidade
+
+		annotation SummarizationSetBy = User
+
+	column 'Situação prazo'
+		dataType: string
+		lineageTag: a8a405d7-0462-5ea6-86b8-709f112d8ffb
+		summarizeBy: none
+		sourceColumn: Situação prazo
+
+		annotation SummarizationSetBy = User
+
+	partition fObrigacoes = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Obrigacoes",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"Obrigação ID", "ID contrato", "Descrição", "Tipo", "Responsável", "Prazo", "Status", "Criticidade", "Situação prazo"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Obrigação ID", type text}, {"ID contrato", type text}, {"Descrição", type text}, {"Tipo", type text}, {"Responsável", type text}, {"Prazo", type date}, {"Status", type text}, {"Criticidade", type text}, {"Situação prazo", type text}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

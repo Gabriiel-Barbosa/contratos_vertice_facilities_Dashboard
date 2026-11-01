@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "visao",
+    "carteira",
+    "renovacoes",
+    "reajustes",
+    "comercial",
+    "perdas",
+    "tt_contrato",
+    "tt_segmento",
+    "tt_cliente",
+    "tt_mes",
+    "tt_perda",
+    "tt_pipeline"
+  ],
+  "activePageName": "visao"
+}

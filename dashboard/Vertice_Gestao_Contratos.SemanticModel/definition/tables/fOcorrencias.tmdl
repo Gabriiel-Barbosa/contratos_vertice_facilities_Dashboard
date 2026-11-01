@@ -1,0 +1,212 @@
+table fOcorrencias
+	lineageTag: 73718b62-b54b-5224-a5d6-a799f721d6f2
+
+	column 'Ocorrência ID'
+		dataType: string
+		lineageTag: e6f94bda-8f85-52d7-97b8-13101dba9cc4
+		summarizeBy: none
+		sourceColumn: Ocorrência ID
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo registro'
+		dataType: string
+		lineageTag: 735bc026-07cd-5c4e-9bb8-c2e32787cb92
+		summarizeBy: none
+		sourceColumn: Tipo registro
+
+		annotation SummarizationSetBy = User
+
+	column 'ID contrato'
+		dataType: string
+		isHidden
+		lineageTag: ae92d577-313c-5213-9979-2ed436d3ba58
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'ID oportunidade'
+		dataType: string
+		isHidden
+		lineageTag: e2317c8f-4ca4-567d-91a6-eadd31465af2
+		summarizeBy: none
+		sourceColumn: ID oportunidade
+
+		annotation SummarizationSetBy = User
+
+	column Data
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 0060bb7e-b5c1-5787-8561-6f7fdf1024b8
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = User
+
+	column Categoria
+		dataType: string
+		lineageTag: eba509fa-2d97-5f8e-8eb6-759bc9ecec63
+		summarizeBy: none
+		sourceColumn: Categoria
+
+		annotation SummarizationSetBy = User
+
+	column 'Descrição'
+		dataType: string
+		lineageTag: 7999b626-d521-59f1-87f8-45347e8fa17f
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = User
+
+	column Probabilidade
+		dataType: string
+		lineageTag: db4d3e39-f894-5b29-8659-79c264b6305d
+		summarizeBy: none
+		sourceColumn: Probabilidade
+		sortByColumn: 'Ordem probabilidade'
+
+		annotation SummarizationSetBy = User
+
+	column Impacto
+		dataType: string
+		lineageTag: 0b96440f-8bf4-5210-a36c-ecba7f896d06
+		summarizeBy: none
+		sourceColumn: Impacto
+		sortByColumn: 'Ordem impacto'
+
+		annotation SummarizationSetBy = User
+
+	column 'Responsável'
+		dataType: string
+		lineageTag: 6bbdaa9c-2f4a-5784-a2aa-116f3ae5c7d5
+		summarizeBy: none
+		sourceColumn: Responsável
+
+		annotation SummarizationSetBy = User
+
+	column 'Plano ação'
+		dataType: string
+		lineageTag: 8fe9f161-d2bd-5fa9-adf0-69c2f66e285e
+		summarizeBy: none
+		sourceColumn: Plano ação
+
+		annotation SummarizationSetBy = User
+
+	column Prazo
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: a5d104da-d92e-548f-a771-86d9795213d1
+		summarizeBy: none
+		sourceColumn: Prazo
+
+		annotation SummarizationSetBy = User
+
+	column Status
+		dataType: string
+		lineageTag: d077776f-f2b8-5d80-a0e3-cd3792e9bd37
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor glosa'
+		dataType: double
+		formatString: "\R$ #,0.00;-\R$ #,0.00"
+		lineageTag: b24a3d9a-14dd-57ef-a930-ceaa4b904820
+		summarizeBy: none
+		sourceColumn: Valor glosa
+
+		annotation SummarizationSetBy = User
+
+	column 'Custo extra'
+		dataType: double
+		formatString: "\R$ #,0.00;-\R$ #,0.00"
+		lineageTag: 331fb036-ccbf-5108-93b8-5870c0da9e2c
+		summarizeBy: none
+		sourceColumn: Custo extra
+
+		annotation SummarizationSetBy = User
+
+	column 'Pontuação'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 0de7c75c-7f59-595b-9a67-a13fb7ec803f
+		summarizeBy: none
+		sourceColumn: Pontuação
+
+		annotation SummarizationSetBy = User
+
+	column Severidade
+		dataType: string
+		lineageTag: f449244c-d3a9-5e9d-ac21-40882f9f468b
+		summarizeBy: none
+		sourceColumn: Severidade
+		sortByColumn: 'Ordem severidade'
+
+		annotation SummarizationSetBy = User
+
+	column Aberta
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 6943728f-e6e4-544e-9801-ade5fc54f2be
+		summarizeBy: none
+		sourceColumn: Aberta
+
+		annotation SummarizationSetBy = User
+
+	column 'Prazo vencido'
+		dataType: string
+		lineageTag: a5a7bd76-d615-50ec-82e8-d10b02614217
+		summarizeBy: none
+		sourceColumn: Prazo vencido
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem probabilidade'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 543e1687-892c-53f2-ac08-1d32e52593d7
+		summarizeBy: none
+		sourceColumn: Ordem probabilidade
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem impacto'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 2d526f3e-c2b8-5e6b-8aed-b6e4dd61c251
+		summarizeBy: none
+		sourceColumn: Ordem impacto
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem severidade'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 5d9f2640-8aba-59ef-9e58-26f6a1ca4474
+		summarizeBy: none
+		sourceColumn: Ordem severidade
+
+		annotation SummarizationSetBy = User
+
+	partition fOcorrencias = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Ocorrencias",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"Ocorrência ID", "Tipo registro", "ID contrato", "ID oportunidade", "Data", "Categoria", "Descrição", "Probabilidade", "Impacto", "Responsável", "Plano ação", "Prazo", "Status", "Valor glosa", "Custo extra", "Pontuação", "Severidade", "Aberta", "Prazo vencido"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Ocorrência ID", type text}, {"Tipo registro", type text}, {"ID contrato", type text}, {"ID oportunidade", type text}, {"Data", type date}, {"Categoria", type text}, {"Descrição", type text}, {"Probabilidade", type text}, {"Impacto", type text}, {"Responsável", type text}, {"Plano ação", type text}, {"Prazo", type date}, {"Status", type text}, {"Valor glosa", type number}, {"Custo extra", type number}, {"Pontuação", Int64.Type}, {"Severidade", type text}, {"Aberta", Int64.Type}, {"Prazo vencido", type text}}, "pt-BR"),
+					Passo1 = Table.ReplaceValue(Tipos, each [ID contrato], each if [ID contrato] = null then [ID oportunidade] else [ID contrato], Replacer.ReplaceValue, {"ID contrato"}),
+					Passo2 = Table.AddColumn(Passo1, "Ordem probabilidade", each if [Probabilidade] = "Alta" then 3 else if [Probabilidade] = "Média" then 2 else 1, Int64.Type),
+					Passo3 = Table.AddColumn(Passo2, "Ordem impacto", each if [Impacto] = "Alto" then 3 else if [Impacto] = "Médio" then 2 else 1, Int64.Type),
+					Passo4 = Table.AddColumn(Passo3, "Ordem severidade", each if [Severidade] = "Crítica" then 4 else if [Severidade] = "Alta" then 3 else if [Severidade] = "Média" then 2 else 1, Int64.Type)
+				in
+					Passo4
+
+	annotation PBI_ResultType = Table

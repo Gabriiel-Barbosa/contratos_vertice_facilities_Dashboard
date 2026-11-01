@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "Vertice.json",
+      "reportVersionAtImport": {
+        "visual": "2.4.0",
+        "report": "3.0.0",
+        "page": "2.0.0"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Vertice.json",
+          "path": "Vertice.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "fundo.png",
+          "path": "fundo.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true
+  }
+}

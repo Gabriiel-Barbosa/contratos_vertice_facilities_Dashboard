@@ -1,0 +1,171 @@
+table fEncerrados
+	lineageTag: faa9bead-7b33-5b16-9a23-27719205832e
+
+	column 'ID encerrado'
+		dataType: string
+		isHidden
+		lineageTag: 52b52a59-542c-514b-bd28-6806ec8761e9
+		summarizeBy: none
+		sourceColumn: ID encerrado
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo encerramento'
+		dataType: string
+		lineageTag: 98a5d139-4a83-5c6f-a915-45b492456c4e
+		summarizeBy: none
+		sourceColumn: Tipo encerramento
+
+		annotation SummarizationSetBy = User
+
+	column 'Motivo registrado'
+		dataType: string
+		lineageTag: fbfeccbe-b67f-59d0-88e9-e917183b7fe7
+		summarizeBy: none
+		sourceColumn: Motivo registrado
+
+		annotation SummarizationSetBy = User
+
+	column 'Responsabilidade predominante'
+		dataType: string
+		lineageTag: d9f7873b-187a-5ff1-844a-9df8a6e6042d
+		summarizeBy: none
+		sourceColumn: Responsabilidade predominante
+
+		annotation SummarizationSetBy = User
+
+	column 'Motivo primário'
+		dataType: string
+		lineageTag: ac8eccf4-6a34-5749-bafe-b8db0a83b188
+		summarizeBy: none
+		sourceColumn: Motivo primário
+
+		annotation SummarizationSetBy = User
+
+	column 'Motivo secundário'
+		dataType: string
+		lineageTag: afe92b28-00ca-51b8-b67b-ba9ce3884ea0
+		summarizeBy: none
+		sourceColumn: Motivo secundário
+
+		annotation SummarizationSetBy = User
+
+	column 'Concorrente vencedor'
+		dataType: string
+		lineageTag: 31f40306-e831-5c65-8932-7a965187439b
+		summarizeBy: none
+		sourceColumn: Concorrente vencedor
+
+		annotation SummarizationSetBy = User
+
+	column 'Preço vértice mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 28b219cc-bc48-54cd-a576-8abf6ebbd375
+		summarizeBy: none
+		sourceColumn: Preço vértice mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'Preço vencedor mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 20be6a28-2c20-5214-8f3d-a78e2dd41a64
+		summarizeBy: none
+		sourceColumn: Preço vencedor mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'Nota desempenho'
+		dataType: double
+		formatString: "0.0"
+		lineageTag: ab81c03d-0aaf-5f8c-b99d-ca5c2211b425
+		summarizeBy: none
+		sourceColumn: Nota desempenho
+
+		annotation SummarizationSetBy = User
+
+	column 'Margem estimada %'
+		dataType: double
+		formatString: "0.0%"
+		lineageTag: b5106554-beac-5f73-8267-34527c4e277d
+		summarizeBy: none
+		sourceColumn: Margem estimada %
+
+		annotation SummarizationSetBy = User
+
+	column 'Plano ação'
+		dataType: string
+		lineageTag: 28ae5342-460c-5a06-87f2-f2fbbabf7e20
+		summarizeBy: none
+		sourceColumn: Plano ação
+
+		annotation SummarizationSetBy = User
+
+	column 'Data encerramento'
+		dataType: dateTime
+		isHidden
+		formatString: "dd/mm/yyyy"
+		lineageTag: 59f0f7ca-ae28-5170-9bb8-a036cbe9a700
+		summarizeBy: none
+		sourceColumn: Data encerramento
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor mensal perdido'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 8c9331f4-4716-578e-936d-811731f48c41
+		summarizeBy: none
+		sourceColumn: Valor mensal perdido
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor anualizado perdido'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: a8df9a4d-c1dc-57a9-aaec-98c547a1f06b
+		summarizeBy: none
+		sourceColumn: Valor anualizado perdido
+
+		annotation SummarizationSetBy = User
+
+	column 'Tempo relacionamento meses'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 944a1fb9-2e83-5da2-9ace-e29996bf5d10
+		summarizeBy: none
+		sourceColumn: Tempo relacionamento meses
+
+		annotation SummarizationSetBy = User
+
+	column 'Receita total não renovada'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: abf4d11e-0f1d-5b05-aaa3-1137a557f6f3
+		summarizeBy: none
+		sourceColumn: Receita total não renovada
+
+		annotation SummarizationSetBy = User
+
+	column 'Perda 12m'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: dfa5add3-f511-5849-82c5-1bc6a7391d2f
+		summarizeBy: none
+		sourceColumn: Perda 12m
+
+		annotation SummarizationSetBy = User
+
+	partition fEncerrados = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Encerrados",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"ID encerrado", "Tipo encerramento", "Motivo registrado", "Responsabilidade predominante", "Motivo primário", "Motivo secundário", "Concorrente vencedor", "Preço vértice mensal", "Preço vencedor mensal", "Nota desempenho", "Margem estimada %", "Plano ação", "Data encerramento", "Valor mensal perdido", "Valor anualizado perdido", "Tempo relacionamento meses", "Receita total não renovada", "Perda 12m"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ID encerrado", type text}, {"Tipo encerramento", type text}, {"Motivo registrado", type text}, {"Responsabilidade predominante", type text}, {"Motivo primário", type text}, {"Motivo secundário", type text}, {"Concorrente vencedor", type text}, {"Preço vértice mensal", Int64.Type}, {"Preço vencedor mensal", Int64.Type}, {"Nota desempenho", type number}, {"Margem estimada %", type number}, {"Plano ação", type text}, {"Data encerramento", type date}, {"Valor mensal perdido", Int64.Type}, {"Valor anualizado perdido", Int64.Type}, {"Tempo relacionamento meses", Int64.Type}, {"Receita total não renovada", Int64.Type}, {"Perda 12m", Int64.Type}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

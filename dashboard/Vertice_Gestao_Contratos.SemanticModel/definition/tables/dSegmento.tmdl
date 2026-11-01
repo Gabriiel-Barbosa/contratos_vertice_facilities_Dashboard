@@ -1,0 +1,22 @@
+table dSegmento
+	lineageTag: 6a34d6b3-6b66-5465-b561-d8ff0380932d
+
+	column Segmento
+		dataType: string
+		lineageTag: b276c90b-d0ac-51f4-ba80-24bc2ee318e2
+		summarizeBy: none
+		sourceColumn: Segmento
+
+		annotation SummarizationSetBy = User
+
+	partition dSegmento = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Segmento",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"Segmento"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Segmento", type text}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

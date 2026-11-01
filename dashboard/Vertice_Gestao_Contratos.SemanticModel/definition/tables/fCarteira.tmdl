@@ -1,0 +1,197 @@
+table fCarteira
+	lineageTag: 2a840870-d8e2-5e5c-9b8e-239875e91693
+
+	column 'ID contrato'
+		dataType: string
+		isHidden
+		lineageTag: fa0afd7a-be92-5bd9-9990-9c4bb847a424
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: b8cf3927-8072-5971-b73a-e94d214cccb2
+		summarizeBy: none
+		sourceColumn: Valor mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'Custo direto estimado'
+		dataType: int64
+		isHidden
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: dd53db5f-0d00-5a4c-a7d0-c14a482df693
+		summarizeBy: none
+		sourceColumn: Custo direto estimado
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor global'
+		dataType: int64
+		isHidden
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 17e25f7b-6c87-51ee-8188-d00c14d98248
+		summarizeBy: none
+		sourceColumn: Valor global
+
+		annotation SummarizationSetBy = User
+
+	column Vigente
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: d15912b6-1421-5b3a-8168-e29325c0cd1c
+		summarizeBy: none
+		sourceColumn: Vigente
+
+		annotation SummarizationSetBy = User
+
+	column 'Margem mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: ebe82712-30dd-5edb-97ec-c935be6d3890
+		summarizeBy: none
+		sourceColumn: Margem mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'Margem %'
+		dataType: double
+		formatString: "0.0%"
+		lineageTag: abfcaf8d-0427-5949-b9d0-99d28ea0a0f5
+		summarizeBy: none
+		sourceColumn: Margem %
+
+		annotation SummarizationSetBy = User
+
+	column 'Receita anualizada'
+		dataType: int64
+		isHidden
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: f9801e94-dc7c-5481-b7df-59738f084429
+		summarizeBy: none
+		sourceColumn: Receita anualizada
+
+		annotation SummarizationSetBy = User
+
+	column 'Dias para vencimento'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 0e01f9aa-c4da-539d-b5d8-a6a2e737b1ba
+		summarizeBy: none
+		sourceColumn: Dias para vencimento
+
+		annotation SummarizationSetBy = User
+
+	column 'Faixa vigência'
+		dataType: string
+		lineageTag: f0a108c4-70c6-5fd2-a670-795003b78975
+		summarizeBy: none
+		sourceColumn: Faixa vigência
+		sortByColumn: 'Ordem faixa'
+
+		annotation SummarizationSetBy = User
+
+	column 'Sinal margem'
+		dataType: string
+		lineageTag: a70bf4c6-c2fe-5f9a-9ed6-838207207b7b
+		summarizeBy: none
+		sourceColumn: Sinal margem
+
+		annotation SummarizationSetBy = User
+
+	column 'Situação reajuste'
+		dataType: string
+		lineageTag: 9bf9f5d2-be37-5470-a825-8e2f83237179
+		summarizeBy: none
+		sourceColumn: Situação reajuste
+
+		annotation SummarizationSetBy = User
+
+	column 'Obrigações vencidas'
+		dataType: int64
+		formatString: "0"
+		lineageTag: fd17b8d6-f0cf-579f-b0bc-926f5e5b38d0
+		summarizeBy: none
+		sourceColumn: Obrigações vencidas
+
+		annotation SummarizationSetBy = User
+
+	column 'Ocorrências 12m'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 7f51e531-e3cc-50be-ae35-75228bf77d58
+		summarizeBy: none
+		sourceColumn: Ocorrências 12m
+
+		annotation SummarizationSetBy = User
+
+	column 'Ocorrências graves abertas'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 05e5a12d-fc75-5b7f-95e3-9c91d0416143
+		summarizeBy: none
+		sourceColumn: Ocorrências graves abertas
+
+		annotation SummarizationSetBy = User
+
+	column 'Pontos atenção'
+		dataType: int64
+		formatString: "0"
+		lineageTag: a7a74629-7848-509f-9953-c9406a64b2df
+		summarizeBy: none
+		sourceColumn: Pontos atenção
+
+		annotation SummarizationSetBy = User
+
+	column 'Exige plano diretoria'
+		dataType: string
+		lineageTag: f3d7fcf1-d76b-5bfd-9a13-179db10471b3
+		summarizeBy: none
+		sourceColumn: Exige plano diretoria
+
+		annotation SummarizationSetBy = User
+
+	column 'Sinais atenção'
+		dataType: string
+		lineageTag: a4844578-fdc1-5d3f-a304-445b59e263f9
+		summarizeBy: none
+		sourceColumn: Sinais atenção
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem atenção'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 4960d453-3e17-53b6-9679-d970cb7b0238
+		summarizeBy: none
+		sourceColumn: Ordem atenção
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem faixa'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 6d11aea8-4472-5379-b90f-599ea81c1ad5
+		summarizeBy: none
+		sourceColumn: Ordem faixa
+
+		annotation SummarizationSetBy = User
+
+	partition fCarteira = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Contratos",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"ID contrato", "Valor mensal", "Custo direto estimado", "Valor global", "Vigente", "Margem mensal", "Margem %", "Receita anualizada", "Dias para vencimento", "Faixa vigência", "Sinal margem", "Situação reajuste", "Obrigações vencidas", "Ocorrências 12m", "Ocorrências graves abertas", "Pontos atenção", "Exige plano diretoria", "Sinais atenção", "Ordem atenção"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ID contrato", type text}, {"Valor mensal", Int64.Type}, {"Custo direto estimado", Int64.Type}, {"Valor global", Int64.Type}, {"Vigente", Int64.Type}, {"Margem mensal", Int64.Type}, {"Margem %", type number}, {"Receita anualizada", Int64.Type}, {"Dias para vencimento", Int64.Type}, {"Faixa vigência", type text}, {"Sinal margem", type text}, {"Situação reajuste", type text}, {"Obrigações vencidas", Int64.Type}, {"Ocorrências 12m", Int64.Type}, {"Ocorrências graves abertas", Int64.Type}, {"Pontos atenção", Int64.Type}, {"Exige plano diretoria", type text}, {"Sinais atenção", type text}, {"Ordem atenção", Int64.Type}}, "pt-BR"),
+					Passo1 = Table.AddColumn(Tipos, "Ordem faixa", each if Text.Contains([Faixa vigência], "até 30") then 1 else if Text.Contains([Faixa vigência], "31 a 60") then 2 else if Text.Contains([Faixa vigência], "61 a 90") then 3 else if Text.Contains([Faixa vigência], "91 a 180") then 4 else if Text.Contains([Faixa vigência], "acima") then 5 else 6, Int64.Type)
+				in
+					Passo1
+
+	annotation PBI_ResultType = Table

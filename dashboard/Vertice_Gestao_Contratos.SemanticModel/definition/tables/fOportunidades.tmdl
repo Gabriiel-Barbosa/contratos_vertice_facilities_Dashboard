@@ -1,0 +1,258 @@
+table fOportunidades
+	lineageTag: 235f2c2d-3ca5-5c9c-a2eb-de0e4c82f58d
+
+	column 'ID oportunidade'
+		dataType: string
+		lineageTag: 880c0194-34ec-5fe3-985e-fd1a8e334b35
+		summarizeBy: none
+		sourceColumn: ID oportunidade
+
+		annotation SummarizationSetBy = User
+
+	column 'Cliente ID'
+		dataType: string
+		isHidden
+		lineageTag: de111e85-e860-5466-a87f-e2222d997b47
+		summarizeBy: none
+		sourceColumn: Cliente ID
+
+		annotation SummarizationSetBy = User
+
+	column 'Cliente nome'
+		dataType: string
+		lineageTag: 15dc5b1f-d67c-550a-9c38-d4ed45846e01
+		summarizeBy: none
+		sourceColumn: Cliente nome
+
+		annotation SummarizationSetBy = User
+
+	column 'Nome oportunidade'
+		dataType: string
+		lineageTag: 3a823384-1ff7-5e29-8fae-02bf21a2d833
+		summarizeBy: none
+		sourceColumn: Nome oportunidade
+
+		annotation SummarizationSetBy = User
+
+	column Modalidade
+		dataType: string
+		lineageTag: 2b5ab17c-b0c2-54f9-b381-cbf4fdbd6e48
+		summarizeBy: none
+		sourceColumn: Modalidade
+
+		annotation SummarizationSetBy = User
+
+	column Segmento
+		dataType: string
+		isHidden
+		lineageTag: 826f15c3-f588-5dff-8431-4ccc1fe13c1e
+		summarizeBy: none
+		sourceColumn: Segmento
+
+		annotation SummarizationSetBy = User
+
+	column 'Município'
+		dataType: string
+		lineageTag: 2ab27e9a-3b07-5924-afa0-81b9b9c0c51c
+		summarizeBy: none
+		sourceColumn: Município
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor estimado mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 770e0c18-2072-5be3-996c-85b8f9f50206
+		summarizeBy: none
+		sourceColumn: Valor estimado mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor proposto mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 516b701f-d85d-5bef-b998-ab7a64936e67
+		summarizeBy: none
+		sourceColumn: Valor proposto mensal
+
+		annotation SummarizationSetBy = User
+
+	column Probabilidade
+		dataType: double
+		formatString: "0%"
+		lineageTag: e95ed4dd-4645-5af6-a45a-f2db95e5229f
+		summarizeBy: none
+		sourceColumn: Probabilidade
+
+		annotation SummarizationSetBy = User
+
+	column 'Prazo proposta'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 536adbb7-5e8a-57b7-8ba7-b5a2199ea982
+		summarizeBy: none
+		sourceColumn: Prazo proposta
+
+		annotation SummarizationSetBy = User
+
+	column 'Responsável'
+		dataType: string
+		lineageTag: 040627a6-2193-5304-8183-924407578a21
+		summarizeBy: none
+		sourceColumn: Responsável
+
+		annotation SummarizationSetBy = User
+
+	column Etapa
+		dataType: string
+		isHidden
+		lineageTag: 6f1010b2-5eab-52de-b453-263c57cca513
+		summarizeBy: none
+		sourceColumn: Etapa
+
+		annotation SummarizationSetBy = User
+
+	column Resultado
+		dataType: string
+		lineageTag: b72212a2-7842-57bc-bfd1-152e49fb5b00
+		summarizeBy: none
+		sourceColumn: Resultado
+
+		annotation SummarizationSetBy = User
+
+	column 'Motivo perda'
+		dataType: string
+		lineageTag: 3ed3dbbd-7c88-592b-90fd-4285ef830c00
+		summarizeBy: none
+		sourceColumn: Motivo perda
+
+		annotation SummarizationSetBy = User
+
+	column 'Preço vencedor mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: f5cfce47-1ea9-52e7-956a-32556204e91d
+		summarizeBy: none
+		sourceColumn: Preço vencedor mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'ID contrato gerado'
+		dataType: string
+		isHidden
+		lineageTag: dab8af01-f8f2-51e6-9d3c-d8439ca9c5c6
+		summarizeBy: none
+		sourceColumn: ID contrato gerado
+
+		annotation SummarizationSetBy = User
+
+	column 'Data última atualização'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 981a64cb-daa7-5203-80b4-f7313bc09ee9
+		summarizeBy: none
+		sourceColumn: Data última atualização
+
+		annotation SummarizationSetBy = User
+
+	column Aberta
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: bd5e96d1-48cd-5c13-be18-b753c1cc5175
+		summarizeBy: none
+		sourceColumn: Aberta
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor anual estimado'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 9887c379-3f4c-5fde-a1f7-c48318aafcf5
+		summarizeBy: none
+		sourceColumn: Valor anual estimado
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor anual ponderado'
+		dataType: double
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: a4df83cb-e1a9-51a1-ad28-0f8c83c5dfb1
+		summarizeBy: none
+		sourceColumn: Valor anual ponderado
+
+		annotation SummarizationSetBy = User
+
+	column 'Margem prevista'
+		dataType: double
+		formatString: "0.0%"
+		lineageTag: 5b716ec0-45ac-5fdd-bcac-1a30687eb4e0
+		summarizeBy: none
+		sourceColumn: Margem prevista
+
+		annotation SummarizationSetBy = User
+
+	column 'Sinal margem'
+		dataType: string
+		lineageTag: a66f7183-a76d-5ccd-abc7-22577bfb28dc
+		summarizeBy: none
+		sourceColumn: Sinal margem
+
+		annotation SummarizationSetBy = User
+
+	column 'Próximo prazo'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 5bcc7160-6daf-58af-8c42-4d601dc113c2
+		summarizeBy: none
+		sourceColumn: Próximo prazo
+
+		annotation SummarizationSetBy = User
+
+	column 'Dias próximo prazo'
+		dataType: int64
+		formatString: "0"
+		lineageTag: a450e0cc-fe1a-58e0-ad96-83ca7b518620
+		summarizeBy: none
+		sourceColumn: Dias próximo prazo
+
+		annotation SummarizationSetBy = User
+
+	column 'Dias sem atualização'
+		dataType: int64
+		formatString: "0"
+		lineageTag: d3353a83-35cc-587f-aaa2-c79602abb717
+		summarizeBy: none
+		sourceColumn: Dias sem atualização
+
+		annotation SummarizationSetBy = User
+
+	column Alerta
+		dataType: string
+		lineageTag: b437314e-1ef6-5f9f-bf10-238687042887
+		summarizeBy: none
+		sourceColumn: Alerta
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem prazo'
+		dataType: double
+		isHidden
+		formatString: "#,0.00"
+		lineageTag: 769651c3-6256-556a-af34-6fd78a140236
+		summarizeBy: none
+		sourceColumn: Ordem prazo
+
+		annotation SummarizationSetBy = User
+
+	partition fOportunidades = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Oportunidades",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"ID oportunidade", "Cliente ID", "Cliente nome", "Nome oportunidade", "Modalidade", "Segmento", "Município", "Valor estimado mensal", "Valor proposto mensal", "Probabilidade", "Prazo proposta", "Responsável", "Etapa", "Resultado", "Motivo perda", "Preço vencedor mensal", "ID contrato gerado", "Data última atualização", "Aberta", "Valor anual estimado", "Valor anual ponderado", "Margem prevista", "Sinal margem", "Próximo prazo", "Dias próximo prazo", "Dias sem atualização", "Alerta", "Ordem prazo"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ID oportunidade", type text}, {"Cliente ID", type text}, {"Cliente nome", type text}, {"Nome oportunidade", type text}, {"Modalidade", type text}, {"Segmento", type text}, {"Município", type text}, {"Valor estimado mensal", Int64.Type}, {"Valor proposto mensal", Int64.Type}, {"Probabilidade", type number}, {"Prazo proposta", type date}, {"Responsável", type text}, {"Etapa", type text}, {"Resultado", type text}, {"Motivo perda", type text}, {"Preço vencedor mensal", Int64.Type}, {"ID contrato gerado", type text}, {"Data última atualização", type date}, {"Aberta", Int64.Type}, {"Valor anual estimado", Int64.Type}, {"Valor anual ponderado", type number}, {"Margem prevista", type number}, {"Sinal margem", type text}, {"Próximo prazo", type date}, {"Dias próximo prazo", Int64.Type}, {"Dias sem atualização", Int64.Type}, {"Alerta", type text}, {"Ordem prazo", type number}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

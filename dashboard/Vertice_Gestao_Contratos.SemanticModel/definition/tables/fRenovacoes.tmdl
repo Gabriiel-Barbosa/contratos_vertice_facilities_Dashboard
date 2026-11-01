@@ -1,0 +1,173 @@
+table fRenovacoes
+	lineageTag: 49423e98-c39b-588e-80aa-5df6cdfba225
+
+	column 'ID renovação'
+		dataType: string
+		lineageTag: cba7f769-dc2a-5c6e-9296-054f42d9faf6
+		summarizeBy: none
+		sourceColumn: ID renovação
+
+		annotation SummarizationSetBy = User
+
+	column 'ID contrato'
+		dataType: string
+		isHidden
+		lineageTag: 0cc3e3b2-b9f6-5c5d-84e4-3e64626427e4
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column Vencimento
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 94c4aed5-ffc1-5a83-96b3-4e02b6d7044a
+		summarizeBy: none
+		sourceColumn: Vencimento
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor mensal atual'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 30b5d77d-1099-5643-8be1-7ad514f82933
+		summarizeBy: none
+		sourceColumn: Valor mensal atual
+
+		annotation SummarizationSetBy = User
+
+	column 'Data limite decisão'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: fbbdd79c-52df-5d45-98a5-6fd42ddee063
+		summarizeBy: none
+		sourceColumn: Data limite decisão
+
+		annotation SummarizationSetBy = User
+
+	column 'Status renovação'
+		dataType: string
+		lineageTag: a6acc131-6ba5-5e79-b961-fd4073cdfa42
+		summarizeBy: none
+		sourceColumn: Status renovação
+
+		annotation SummarizationSetBy = User
+
+	column 'Próxima ação'
+		dataType: string
+		lineageTag: 79918c88-5763-5b9b-afda-1f3e1fb32816
+		summarizeBy: none
+		sourceColumn: Próxima ação
+
+		annotation SummarizationSetBy = User
+
+	column 'Responsável'
+		dataType: string
+		lineageTag: 07def00b-1247-567b-9487-873c7ed94acb
+		summarizeBy: none
+		sourceColumn: Responsável
+
+		annotation SummarizationSetBy = User
+
+	column 'Data decisão'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: ab4744c8-5078-50be-88c0-c0b7d7abac0b
+		summarizeBy: none
+		sourceColumn: Data decisão
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor renovado'
+		dataType: int64
+		isHidden
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 418089bd-e312-582d-af7a-dd619df5de49
+		summarizeBy: none
+		sourceColumn: Valor renovado
+
+		annotation SummarizationSetBy = User
+
+	column 'Motivo não renovação'
+		dataType: string
+		lineageTag: 59fcc27b-c8c2-5ba8-ba4d-f7e2e334a24c
+		summarizeBy: none
+		sourceColumn: Motivo não renovação
+
+		annotation SummarizationSetBy = User
+
+	column Aberta
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 4deb8e66-4ccf-5db8-be32-1ae270e31d6c
+		summarizeBy: none
+		sourceColumn: Aberta
+
+		annotation SummarizationSetBy = User
+
+	column 'Dias para vencimento'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 48500c9f-df70-5305-ad7e-0e9a495b3fc0
+		summarizeBy: none
+		sourceColumn: Dias para vencimento
+
+		annotation SummarizationSetBy = User
+
+	column 'Dias para limite'
+		dataType: int64
+		formatString: "0"
+		lineageTag: 3eccbe91-a8fd-55a4-8726-69e14813a10f
+		summarizeBy: none
+		sourceColumn: Dias para limite
+
+		annotation SummarizationSetBy = User
+
+	column 'Marco vigente'
+		dataType: string
+		lineageTag: af9e7113-1663-5977-a20f-dcd1ba92cbdc
+		summarizeBy: none
+		sourceColumn: Marco vigente
+
+		annotation SummarizationSetBy = User
+
+	column 'Decisão imediata'
+		dataType: string
+		lineageTag: 3793f345-743c-517c-aa9c-ba4db2c748af
+		summarizeBy: none
+		sourceColumn: Decisão imediata
+
+		annotation SummarizationSetBy = User
+
+	column 'Antecedência decisão dias'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: b9a31e3f-1215-551d-bd68-c8f6561f7255
+		summarizeBy: none
+		sourceColumn: Antecedência decisão dias
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem agenda'
+		dataType: double
+		isHidden
+		formatString: "#,0.00"
+		lineageTag: 75d17431-d1b5-5ceb-be1a-4a63c7763fd9
+		summarizeBy: none
+		sourceColumn: Ordem agenda
+
+		annotation SummarizationSetBy = User
+
+	partition fRenovacoes = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Renovacoes",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"ID renovação", "ID contrato", "Vencimento", "Valor mensal atual", "Data limite decisão", "Status renovação", "Próxima ação", "Responsável", "Data decisão", "Valor renovado", "Motivo não renovação", "Aberta", "Dias para vencimento", "Dias para limite", "Marco vigente", "Decisão imediata", "Antecedência decisão dias", "Ordem agenda"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ID renovação", type text}, {"ID contrato", type text}, {"Vencimento", type date}, {"Valor mensal atual", Int64.Type}, {"Data limite decisão", type date}, {"Status renovação", type text}, {"Próxima ação", type text}, {"Responsável", type text}, {"Data decisão", type date}, {"Valor renovado", Int64.Type}, {"Motivo não renovação", type text}, {"Aberta", Int64.Type}, {"Dias para vencimento", Int64.Type}, {"Dias para limite", Int64.Type}, {"Marco vigente", type text}, {"Decisão imediata", type text}, {"Antecedência decisão dias", Int64.Type}, {"Ordem agenda", type number}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

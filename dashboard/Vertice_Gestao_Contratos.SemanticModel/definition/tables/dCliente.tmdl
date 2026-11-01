@@ -1,0 +1,99 @@
+table dCliente
+	lineageTag: 430dc5f0-c5b5-5542-a4a9-82328abfa8aa
+
+	column 'Cliente ID'
+		dataType: string
+		isHidden
+		lineageTag: 8d6a1fb6-de67-5a1b-8215-f0b33112cd10
+		summarizeBy: none
+		sourceColumn: Cliente ID
+
+		annotation SummarizationSetBy = User
+
+	column 'Nome fantasia'
+		dataType: string
+		lineageTag: 27a0289b-8627-5305-8d31-613790c1d01f
+		summarizeBy: none
+		sourceColumn: Nome fantasia
+
+		annotation SummarizationSetBy = User
+
+	column 'Razão social'
+		dataType: string
+		isHidden
+		lineageTag: c0dd409a-fb38-55af-a5c4-4a476d14ad35
+		summarizeBy: none
+		sourceColumn: Razão social
+
+		annotation SummarizationSetBy = User
+
+	column 'Segmento econômico'
+		dataType: string
+		lineageTag: e36a6b5d-da96-5842-8f34-4a3f380b731e
+		summarizeBy: none
+		sourceColumn: Segmento econômico
+
+		annotation SummarizationSetBy = User
+
+	column 'Município'
+		dataType: string
+		lineageTag: dc1fd3cd-4f8e-5228-a3fa-4e46917ac753
+		summarizeBy: none
+		sourceColumn: Município
+
+		annotation SummarizationSetBy = User
+
+	column UF
+		dataType: string
+		isHidden
+		lineageTag: 67a618a1-7b20-5590-a8b2-cea62552fb55
+		summarizeBy: none
+		sourceColumn: UF
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo cliente'
+		dataType: string
+		lineageTag: bc417911-2967-5fe8-af3d-a2752db51c0a
+		summarizeBy: none
+		sourceColumn: Tipo cliente
+
+		annotation SummarizationSetBy = User
+
+	column 'Prazo pagamento dias'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: cdfda67d-5fab-55c0-9efe-d61eec25123d
+		summarizeBy: none
+		sourceColumn: Prazo pagamento dias
+
+		annotation SummarizationSetBy = User
+
+	column 'Classificação relevância'
+		dataType: string
+		lineageTag: 71e1652c-69e1-5167-b594-56fc9e459b32
+		summarizeBy: none
+		sourceColumn: Classificação relevância
+
+		annotation SummarizationSetBy = User
+
+	column 'Status relacionamento'
+		dataType: string
+		lineageTag: 03770fc9-db22-5037-aa14-96a94bf6207b
+		summarizeBy: none
+		sourceColumn: Status relacionamento
+
+		annotation SummarizationSetBy = User
+
+	partition dCliente = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Clientes",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"Cliente ID", "Nome fantasia", "Razão social", "Segmento econômico", "Município", "UF", "Tipo cliente", "Prazo pagamento dias", "Classificação relevância", "Status relacionamento"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Cliente ID", type text}, {"Nome fantasia", type text}, {"Razão social", type text}, {"Segmento econômico", type text}, {"Município", type text}, {"UF", type text}, {"Tipo cliente", type text}, {"Prazo pagamento dias", Int64.Type}, {"Classificação relevância", type text}, {"Status relacionamento", type text}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

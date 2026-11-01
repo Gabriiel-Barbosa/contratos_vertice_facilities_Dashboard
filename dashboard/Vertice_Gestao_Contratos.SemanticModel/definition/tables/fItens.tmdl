@@ -1,0 +1,92 @@
+table fItens
+	lineageTag: 1aa43676-7aeb-5ab7-a434-4da393ec5405
+
+	column 'Item ID'
+		dataType: string
+		lineageTag: c56fc15d-8393-5e25-9a08-0d31d40323bd
+		summarizeBy: none
+		sourceColumn: Item ID
+
+		annotation SummarizationSetBy = User
+
+	column 'ID contrato'
+		dataType: string
+		isHidden
+		lineageTag: bd20c014-aa21-5ae4-bdc6-4f3b23c366bf
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'Descrição'
+		dataType: string
+		lineageTag: acaf8710-d2db-5227-95bd-39fe6b004bb8
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = User
+
+	column 'Unidade medida'
+		dataType: string
+		lineageTag: 18e0feee-a950-52d1-be6c-cff099749938
+		summarizeBy: none
+		sourceColumn: Unidade medida
+
+		annotation SummarizationSetBy = User
+
+	column Quantidade
+		dataType: int64
+		formatString: "0"
+		lineageTag: fa6dc2f6-c264-5588-8814-48b873d482e8
+		summarizeBy: none
+		sourceColumn: Quantidade
+
+		annotation SummarizationSetBy = User
+
+	column 'Preço unitário'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: b501615e-b97f-5242-a831-72fbff7a6ad5
+		summarizeBy: none
+		sourceColumn: Preço unitário
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 67c1fe39-e0e2-512e-92e8-c924e5efabea
+		summarizeBy: none
+		sourceColumn: Valor mensal
+
+		annotation SummarizationSetBy = User
+
+	column 'Custo mensal estimado'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: b48811a6-93cd-5ec2-991a-6b82f94de095
+		summarizeBy: none
+		sourceColumn: Custo mensal estimado
+
+		annotation SummarizationSetBy = User
+
+	column 'Margem item %'
+		dataType: double
+		formatString: "0.0%"
+		lineageTag: d43159d9-3a66-5ebe-8ab7-0d7eca4f393e
+		summarizeBy: none
+		sourceColumn: Margem item %
+
+		annotation SummarizationSetBy = User
+
+	partition fItens = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Itens",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"Item ID", "ID contrato", "Descrição", "Unidade medida", "Quantidade", "Preço unitário", "Valor mensal", "Custo mensal estimado", "Margem item %"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"Item ID", type text}, {"ID contrato", type text}, {"Descrição", type text}, {"Unidade medida", type text}, {"Quantidade", Int64.Type}, {"Preço unitário", Int64.Type}, {"Valor mensal", Int64.Type}, {"Custo mensal estimado", Int64.Type}, {"Margem item %", type number}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

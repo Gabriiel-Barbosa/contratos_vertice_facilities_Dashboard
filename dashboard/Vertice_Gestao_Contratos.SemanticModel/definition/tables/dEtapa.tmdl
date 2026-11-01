@@ -1,0 +1,33 @@
+table dEtapa
+	lineageTag: 9fbbacad-d7c7-589f-be5f-8139063938ab
+
+	column 'Etapa funil'
+		dataType: string
+		lineageTag: e2bf7fa1-ff7d-5dc4-86fd-984e857cc260
+		summarizeBy: none
+		sourceColumn: Etapa funil
+		sortByColumn: 'Ordem etapa'
+
+		annotation SummarizationSetBy = User
+
+	column 'Ordem etapa'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: f296ed3d-d31a-5718-9c1d-20ad0d5da88a
+		summarizeBy: none
+		sourceColumn: Ordem etapa
+
+		annotation SummarizationSetBy = User
+
+	partition dEtapa = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Etapa_Funil",Kind="Table"]}[Data],
+					Tipos = Table.TransformColumnTypes(Origem, {{"Etapa funil", type text}}, "pt-BR"),
+					Indice = Table.AddIndexColumn(Tipos, "Ordem etapa", 1, 1, Int64.Type)
+				in
+					Indice
+
+	annotation PBI_ResultType = Table

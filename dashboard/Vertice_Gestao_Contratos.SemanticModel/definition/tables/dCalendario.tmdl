@@ -1,0 +1,88 @@
+table dCalendario
+	lineageTag: da8acc66-832e-54a8-953e-f4220d38a114
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: "dd/mm/yyyy"
+		lineageTag: 882dd54b-b5c1-59ca-ae4e-3bd2ee4bced0
+		summarizeBy: none
+		sourceColumn: Data
+
+		annotation SummarizationSetBy = User
+
+	column Ano
+		dataType: int64
+		formatString: "0"
+		lineageTag: 110963ff-68d2-5888-af0a-8c2eb914812f
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = User
+
+	column Trimestre
+		dataType: string
+		lineageTag: 2e11328e-c777-5d34-86d8-9acbaa2b2a84
+		summarizeBy: none
+		sourceColumn: Trimestre
+		sortByColumn: 'Ano Trimestre'
+
+		annotation SummarizationSetBy = User
+
+	column 'Ano Trimestre'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: bd00a28a-0e0b-584c-b469-52f068a95e4d
+		summarizeBy: none
+		sourceColumn: Ano Trimestre
+
+		annotation SummarizationSetBy = User
+
+	column 'Ano Mês'
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: 42ed58cf-1741-5f0a-8423-9338ceb26a1e
+		summarizeBy: none
+		sourceColumn: Ano Mês
+
+		annotation SummarizationSetBy = User
+
+	column 'Mês'
+		dataType: string
+		lineageTag: 8abe9db1-b097-5dea-bd72-b0dc106de60f
+		summarizeBy: none
+		sourceColumn: Mês
+		sortByColumn: 'Ano Mês'
+
+		annotation SummarizationSetBy = User
+
+	column 'Competência'
+		dataType: dateTime
+		formatString: "mmm/yy"
+		lineageTag: 2767e75e-ae81-55af-aff6-c7aca3ea42a6
+		summarizeBy: none
+		sourceColumn: Competência
+
+		annotation SummarizationSetBy = User
+
+	partition dCalendario = m
+		mode: import
+		source =
+				let
+					Inicio = #date(2023, 1, 1),
+					Fim = #date(2028, 12, 31),
+					Datas = List.Dates(Inicio, Duration.Days(Fim - Inicio) + 1, #duration(1, 0, 0, 0)),
+					Tabela = Table.FromList(Datas, Splitter.SplitByNothing(), type table [Data = date]),
+					Ano = Table.AddColumn(Tabela, "Ano", each Date.Year([Data]), Int64.Type),
+					Trimestre = Table.AddColumn(Ano, "Trimestre", each "T" & Text.From(Date.QuarterOfYear([Data])) & "/" & Text.From([Ano]), type text),
+					AnoTri = Table.AddColumn(Trimestre, "Ano Trimestre", each [Ano] * 10 + Date.QuarterOfYear([Data]), Int64.Type),
+					AnoMes = Table.AddColumn(AnoTri, "Ano Mês", each [Ano] * 100 + Date.Month([Data]), Int64.Type),
+					Mes = Table.AddColumn(AnoMes, "Mês", each Date.ToText([Data], "MMM/yy", "pt-BR"), type text),
+					Competencia = Table.AddColumn(Mes, "Competência", each [Data], type date)
+				in
+					Competencia
+
+	annotation PBI_ResultType = Table

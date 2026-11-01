@@ -1,0 +1,121 @@
+table dContrato
+	lineageTag: 722238d4-59fd-54bb-8da4-bc392d0f0c1d
+
+	column 'ID contrato'
+		dataType: string
+		lineageTag: b686037a-5644-5e5b-95e7-f5e9ec12d7ba
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'Cliente ID'
+		dataType: string
+		isHidden
+		lineageTag: 589e2b72-125e-5c3f-9510-14d6bd609400
+		summarizeBy: none
+		sourceColumn: Cliente ID
+
+		annotation SummarizationSetBy = User
+
+	column 'Cliente nome'
+		dataType: string
+		lineageTag: 3810defe-4395-5115-9c68-416d189641f6
+		summarizeBy: none
+		sourceColumn: Cliente nome
+
+		annotation SummarizationSetBy = User
+
+	column Objeto
+		dataType: string
+		lineageTag: 25fb68cc-8a0a-55c8-8d3d-f770bca48bcb
+		summarizeBy: none
+		sourceColumn: Objeto
+
+		annotation SummarizationSetBy = User
+
+	column Segmento
+		dataType: string
+		isHidden
+		lineageTag: baacd5f9-af4b-596c-8b36-88fc12833926
+		summarizeBy: none
+		sourceColumn: Segmento
+
+		annotation SummarizationSetBy = User
+
+	column 'Município'
+		dataType: string
+		lineageTag: 80bbf7e8-8c86-543d-9d42-c667ba8c14d7
+		summarizeBy: none
+		sourceColumn: Município
+
+		annotation SummarizationSetBy = User
+
+	column 'Gestor contrato'
+		dataType: string
+		lineageTag: 1e68ad3d-c04b-5620-846d-00de231d6e78
+		summarizeBy: none
+		sourceColumn: Gestor contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'Início vigência'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 3d8bc05a-7fb1-5d13-94d9-b7cdf5b0bb89
+		summarizeBy: none
+		sourceColumn: Início vigência
+
+		annotation SummarizationSetBy = User
+
+	column 'Fim vigência'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: 88cef492-d312-53ae-9619-5c1800f1c49c
+		summarizeBy: none
+		sourceColumn: Fim vigência
+
+		annotation SummarizationSetBy = User
+
+	column 'Situação'
+		dataType: string
+		lineageTag: f180d315-2c0f-574a-a5e7-c0d1eb83b595
+		summarizeBy: none
+		sourceColumn: Situação
+
+		annotation SummarizationSetBy = User
+
+	column Contrato
+		dataType: string
+		lineageTag: 6a6d61aa-c714-5d82-a330-5467a05a0c3c
+		summarizeBy: none
+		sourceColumn: Contrato
+
+		annotation SummarizationSetBy = User
+
+	partition dContrato = m
+		mode: import
+		source =
+				let
+					Vigentes = Table.SelectColumns(Fonte{[Item="tbl_Contratos",Kind="Table"]}[Data], {"ID contrato", "Cliente ID", "Cliente nome", "Objeto", "Segmento", "Município", "Gestor contrato", "Início vigência", "Fim vigência"}),
+					BaseVigentes = Table.AddColumn(Vigentes, "Situação", each "Vigente", type text),
+					Encerrados = Table.SelectColumns(Fonte{[Item="tbl_Encerrados",Kind="Table"]}[Data], {"ID encerrado", "Cliente ID", "Cliente nome", "Serviço", "Segmento", "Data início", "Data encerramento"}),
+					Renomeados = Table.RenameColumns(Encerrados, {{"ID encerrado", "ID contrato"}, {"Serviço", "Objeto"}, {"Data início", "Início vigência"}, {"Data encerramento", "Fim vigência"}}),
+					ComMunicipio = Table.AddColumn(Renomeados, "Município", each "Não informado", type text),
+					ComGestor = Table.AddColumn(ComMunicipio, "Gestor contrato", each "Não informado", type text),
+					BaseEncerrados = Table.AddColumn(ComGestor, "Situação", each "Encerrado", type text),
+					Ocorrencias = Fonte{[Item="tbl_Ocorrencias",Kind="Table"]}[Data],
+					IdsOportunidade = List.RemoveNulls(Ocorrencias[ID oportunidade]),
+					Oportunidades = Table.SelectRows(Fonte{[Item="tbl_Oportunidades",Kind="Table"]}[Data], each List.Contains(IdsOportunidade, [ID oportunidade])),
+					OpSelecao = Table.SelectColumns(Oportunidades, {"ID oportunidade", "Cliente ID", "Cliente nome", "Nome oportunidade", "Segmento", "Município", "Responsável"}),
+					OpRenomeada = Table.RenameColumns(OpSelecao, {{"ID oportunidade", "ID contrato"}, {"Nome oportunidade", "Objeto"}, {"Responsável", "Gestor contrato"}}),
+					OpInicio = Table.AddColumn(OpRenomeada, "Início vigência", each null, type nullable date),
+					OpFim = Table.AddColumn(OpInicio, "Fim vigência", each null, type nullable date),
+					BaseOportunidades = Table.AddColumn(OpFim, "Situação", each "Oportunidade", type text),
+					Uniao = Table.Combine({BaseVigentes, BaseEncerrados, BaseOportunidades}),
+					Tipos = Table.TransformColumnTypes(Uniao, {{"ID contrato", type text}, {"Cliente ID", type text}, {"Cliente nome", type text}, {"Objeto", type text}, {"Segmento", type text}, {"Município", type text}, {"Gestor contrato", type text}, {"Início vigência", type date}, {"Fim vigência", type date}, {"Situação", type text}}, "pt-BR"),
+					Rotulo = Table.AddColumn(Tipos, "Contrato", each [ID contrato] & " · " & [Cliente nome], type text)
+				in
+					Rotulo
+
+	annotation PBI_ResultType = Table

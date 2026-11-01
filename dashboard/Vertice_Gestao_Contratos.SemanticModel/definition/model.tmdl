@@ -1,0 +1,26 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table dCliente
+ref table dSegmento
+ref table dContrato
+ref table dCalendario
+ref table dEtapa
+ref table Parametros
+ref table fCarteira
+ref table fItens
+ref table fFinanceiro
+ref table fEventos
+ref table fObrigacoes
+ref table fOcorrencias
+ref table fRenovacoes
+ref table fOportunidades
+ref table fEncerrados
+ref table _Medidas

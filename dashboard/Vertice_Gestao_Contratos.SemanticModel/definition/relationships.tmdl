@@ -1,0 +1,59 @@
+relationship 9a3f218d-e037-5496-ab10-90609e526cd7
+	fromColumn: dContrato.'Cliente ID'
+	toColumn: dCliente.'Cliente ID'
+
+relationship 77f3f328-a71b-5acc-8aaa-7bf3f69f0777
+	fromColumn: fOportunidades.'Cliente ID'
+	toColumn: dCliente.'Cliente ID'
+
+relationship 194b18bb-d81d-5ea1-8d60-5710f74b7db4
+	fromColumn: dContrato.Segmento
+	toColumn: dSegmento.Segmento
+
+relationship ebba4aa7-724c-58e4-807f-d544afb068e6
+	fromColumn: fOportunidades.Segmento
+	toColumn: dSegmento.Segmento
+
+relationship 22d48c04-1513-509c-9a0c-ceae3312967a
+	fromColumn: fOportunidades.Etapa
+	toColumn: dEtapa.'Etapa funil'
+
+relationship 98a0a6eb-9571-5337-a887-5f6b3d51cb92
+	fromColumn: fCarteira.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship b7a74ae1-51a6-5ab8-ac5f-7338c6ef58b3
+	fromColumn: fItens.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship b6a35f4e-dcee-5e93-b97c-92db88ac1061
+	fromColumn: fFinanceiro.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship acb318b3-6a50-5d3e-82b2-333dc335e63d
+	fromColumn: fEventos.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship 51fb2cb5-d2fa-5426-815a-d50e2803af53
+	fromColumn: fObrigacoes.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship 7c947654-a95f-58f4-8a92-836e49cbdad6
+	fromColumn: fOcorrencias.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship d1a46e9d-936e-5ac4-8cc0-8cc332e174a1
+	fromColumn: fRenovacoes.'ID contrato'
+	toColumn: dContrato.'ID contrato'
+
+relationship 19abcf7d-9459-575a-8bd0-b838837ae96d
+	fromColumn: fEncerrados.'ID encerrado'
+	toColumn: dContrato.'ID contrato'
+
+relationship 376b45a6-9088-5f7d-9a9f-bef1625473bd
+	fromColumn: fFinanceiro.'Competência'
+	toColumn: dCalendario.Data
+
+relationship e8fe33f0-7ba7-546f-8285-97ca51a138fe
+	fromColumn: fEncerrados.'Data encerramento'
+	toColumn: dCalendario.Data

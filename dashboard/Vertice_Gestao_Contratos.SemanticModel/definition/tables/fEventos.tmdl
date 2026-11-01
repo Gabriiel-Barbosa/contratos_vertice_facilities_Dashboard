@@ -1,0 +1,128 @@
+table fEventos
+	lineageTag: 52c6a2a8-03c9-57c8-bcc6-d4a46b988ff0
+
+	column 'ID evento'
+		dataType: string
+		lineageTag: 3606fc97-4e2a-5263-9bd9-905e0a3d5565
+		summarizeBy: none
+		sourceColumn: ID evento
+
+		annotation SummarizationSetBy = User
+
+	column 'ID contrato'
+		dataType: string
+		isHidden
+		lineageTag: daa8b4b1-fda1-5d66-b324-56b91b47ddac
+		summarizeBy: none
+		sourceColumn: ID contrato
+
+		annotation SummarizationSetBy = User
+
+	column 'Tipo evento'
+		dataType: string
+		lineageTag: 4b44e116-1bb6-5a8e-9b32-53eeefc0caa8
+		summarizeBy: none
+		sourceColumn: Tipo evento
+
+		annotation SummarizationSetBy = User
+
+	column 'Descrição evento'
+		dataType: string
+		lineageTag: f392e791-0759-585b-b45b-27d40d6e1f8b
+		summarizeBy: none
+		sourceColumn: Descrição evento
+
+		annotation SummarizationSetBy = User
+
+	column 'Data base'
+		dataType: dateTime
+		formatString: "dd/mm/yyyy"
+		lineageTag: e4f815e0-7e93-50bf-a417-2c41de23cd86
+		summarizeBy: none
+		sourceColumn: Data base
+
+		annotation SummarizationSetBy = User
+
+	column Percentual
+		dataType: double
+		formatString: "0.0%"
+		lineageTag: 8c300a1b-ebfb-57a2-9acf-92fc989fb6ea
+		summarizeBy: none
+		sourceColumn: Percentual
+
+		annotation SummarizationSetBy = User
+
+	column 'Valor anterior'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 89e1d9af-eff3-53e2-ab5c-ce7292994aa6
+		summarizeBy: none
+		sourceColumn: Valor anterior
+
+		annotation SummarizationSetBy = User
+
+	column 'Status evento'
+		dataType: string
+		lineageTag: 0b15c23e-c8f2-589c-96d3-ab47214fa872
+		summarizeBy: none
+		sourceColumn: Status evento
+
+		annotation SummarizationSetBy = User
+
+	column 'Novo valor'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 965acc4c-62d9-5d72-97b9-2670581252d7
+		summarizeBy: none
+		sourceColumn: Novo valor
+
+		annotation SummarizationSetBy = User
+
+	column 'Acréscimo mensal'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 40ce7804-3418-5af4-8b1f-aa7deffe42c1
+		summarizeBy: none
+		sourceColumn: Acréscimo mensal
+
+		annotation SummarizationSetBy = User
+
+	column Aberto
+		dataType: int64
+		isHidden
+		formatString: "0"
+		lineageTag: bd57ce5d-cb87-55fb-ae22-f65bef5a6ed3
+		summarizeBy: none
+		sourceColumn: Aberto
+
+		annotation SummarizationSetBy = User
+
+	column 'Meses desde data base'
+		dataType: int64
+		formatString: "0"
+		lineageTag: bbb0f98b-8fdc-5acb-b9a5-0f5b3ae41650
+		summarizeBy: none
+		sourceColumn: Meses desde data base
+
+		annotation SummarizationSetBy = User
+
+	column 'Retroativo estimado'
+		dataType: int64
+		formatString: "\R$ #,0;-\R$ #,0"
+		lineageTag: 51f5abcf-d2c8-5a6c-a0f2-cc2e3099ccc0
+		summarizeBy: none
+		sourceColumn: Retroativo estimado
+
+		annotation SummarizationSetBy = User
+
+	partition fEventos = m
+		mode: import
+		source =
+				let
+					Origem = Fonte{[Item="tbl_Eventos",Kind="Table"]}[Data],
+					Colunas = Table.SelectColumns(Origem, {"ID evento", "ID contrato", "Tipo evento", "Descrição evento", "Data base", "Percentual", "Valor anterior", "Status evento", "Novo valor", "Acréscimo mensal", "Aberto", "Meses desde data base", "Retroativo estimado"}),
+					Tipos = Table.TransformColumnTypes(Colunas, {{"ID evento", type text}, {"ID contrato", type text}, {"Tipo evento", type text}, {"Descrição evento", type text}, {"Data base", type date}, {"Percentual", type number}, {"Valor anterior", Int64.Type}, {"Status evento", type text}, {"Novo valor", Int64.Type}, {"Acréscimo mensal", Int64.Type}, {"Aberto", Int64.Type}, {"Meses desde data base", Int64.Type}, {"Retroativo estimado", Int64.Type}}, "pt-BR")
+				in
+					Tipos
+
+	annotation PBI_ResultType = Table

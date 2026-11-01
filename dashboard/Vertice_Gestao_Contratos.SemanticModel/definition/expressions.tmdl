@@ -1,0 +1,13 @@
+expression CaminhoArquivo = "C:\Users\gabri\1.Arquivos\7.Projetos Pessoais\012.Inteligência de Negócios e Indicadores\P1_Gestão_De_Contratos\Vertice_Gestao_Contratos.xlsx" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: 8f3cd034-3fad-5df9-9360-7647cc9cc67b
+
+	annotation PBI_ResultType = Text
+
+expression Fonte =
+		let
+			Arquivo = Excel.Workbook(File.Contents(CaminhoArquivo), null, true)
+		in
+			Arquivo
+	lineageTag: 56782769-f3f5-52d7-bfa3-6bafe35391d1
+
+	annotation PBI_ResultType = Table

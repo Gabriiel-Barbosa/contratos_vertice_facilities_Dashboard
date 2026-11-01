@@ -1,0 +1,26 @@
+# Ignora tudo por padrão
+/*
+
+# Projeto
+!/.gitignore
+!/README.md
+!/estudo_de_caso_gestao_de_contratos_vertice_facilities.md
+
+# Dados
+!/Vertice_Gestao_Contratos.xlsx
+
+# Dashboard
+!/dashboard/
+
+# Prints
+!/assets/
+
+# Arquivos locais do Power BI
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Temporários
+~$*
+*.tmp
+Thumbs.db
+desktop.ini
