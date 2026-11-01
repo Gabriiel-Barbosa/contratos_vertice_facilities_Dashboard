@@ -60,7 +60,7 @@ table fEncerrados
 
 	column 'Preço vértice mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 28b219cc-bc48-54cd-a576-8abf6ebbd375
 		summarizeBy: none
 		sourceColumn: Preço vértice mensal
@@ -69,7 +69,7 @@ table fEncerrados
 
 	column 'Preço vencedor mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 20be6a28-2c20-5214-8f3d-a78e2dd41a64
 		summarizeBy: none
 		sourceColumn: Preço vencedor mensal
@@ -78,7 +78,7 @@ table fEncerrados
 
 	column 'Nota desempenho'
 		dataType: double
-		formatString: "0.0"
+		formatString: 0.0
 		lineageTag: ab81c03d-0aaf-5f8c-b99d-ca5c2211b425
 		summarizeBy: none
 		sourceColumn: Nota desempenho
@@ -87,7 +87,7 @@ table fEncerrados
 
 	column 'Margem estimada %'
 		dataType: double
-		formatString: "0.0%"
+		formatString: 0.0%
 		lineageTag: b5106554-beac-5f73-8267-34527c4e277d
 		summarizeBy: none
 		sourceColumn: Margem estimada %
@@ -105,16 +105,18 @@ table fEncerrados
 	column 'Data encerramento'
 		dataType: dateTime
 		isHidden
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 59f0f7ca-ae28-5170-9bb8-a036cbe9a700
 		summarizeBy: none
 		sourceColumn: Data encerramento
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column 'Valor mensal perdido'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 8c9331f4-4716-578e-936d-811731f48c41
 		summarizeBy: none
 		sourceColumn: Valor mensal perdido
@@ -123,7 +125,7 @@ table fEncerrados
 
 	column 'Valor anualizado perdido'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: a8df9a4d-c1dc-57a9-aaec-98c547a1f06b
 		summarizeBy: none
 		sourceColumn: Valor anualizado perdido
@@ -132,7 +134,7 @@ table fEncerrados
 
 	column 'Tempo relacionamento meses'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 944a1fb9-2e83-5da2-9ace-e29996bf5d10
 		summarizeBy: none
 		sourceColumn: Tempo relacionamento meses
@@ -141,7 +143,7 @@ table fEncerrados
 
 	column 'Receita total não renovada'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: abf4d11e-0f1d-5b05-aaa3-1137a557f6f3
 		summarizeBy: none
 		sourceColumn: Receita total não renovada
@@ -151,7 +153,7 @@ table fEncerrados
 	column 'Perda 12m'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: dfa5add3-f511-5849-82c5-1bc6a7391d2f
 		summarizeBy: none
 		sourceColumn: Perda 12m
@@ -169,3 +171,4 @@ table fEncerrados
 					Tipos
 
 	annotation PBI_ResultType = Table
+

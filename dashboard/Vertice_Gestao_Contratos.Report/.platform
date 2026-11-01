@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Vertice_Gestao_Contratos"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4a2d9713-5cab-4c49-aa99-14c0ed3152ee"
+  }
+}

@@ -12,7 +12,7 @@ table fCarteira
 
 	column 'Valor mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: b8cf3927-8072-5971-b73a-e94d214cccb2
 		summarizeBy: none
 		sourceColumn: Valor mensal
@@ -22,7 +22,7 @@ table fCarteira
 	column 'Custo direto estimado'
 		dataType: int64
 		isHidden
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: dd53db5f-0d00-5a4c-a7d0-c14a482df693
 		summarizeBy: none
 		sourceColumn: Custo direto estimado
@@ -32,7 +32,7 @@ table fCarteira
 	column 'Valor global'
 		dataType: int64
 		isHidden
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 17e25f7b-6c87-51ee-8188-d00c14d98248
 		summarizeBy: none
 		sourceColumn: Valor global
@@ -42,7 +42,7 @@ table fCarteira
 	column Vigente
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: d15912b6-1421-5b3a-8168-e29325c0cd1c
 		summarizeBy: none
 		sourceColumn: Vigente
@@ -51,7 +51,7 @@ table fCarteira
 
 	column 'Margem mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: ebe82712-30dd-5edb-97ec-c935be6d3890
 		summarizeBy: none
 		sourceColumn: Margem mensal
@@ -60,7 +60,7 @@ table fCarteira
 
 	column 'Margem %'
 		dataType: double
-		formatString: "0.0%"
+		formatString: 0.0%
 		lineageTag: abfcaf8d-0427-5949-b9d0-99d28ea0a0f5
 		summarizeBy: none
 		sourceColumn: Margem %
@@ -70,7 +70,7 @@ table fCarteira
 	column 'Receita anualizada'
 		dataType: int64
 		isHidden
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: f9801e94-dc7c-5481-b7df-59738f084429
 		summarizeBy: none
 		sourceColumn: Receita anualizada
@@ -79,7 +79,7 @@ table fCarteira
 
 	column 'Dias para vencimento'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 0e01f9aa-c4da-539d-b5d8-a6a2e737b1ba
 		summarizeBy: none
 		sourceColumn: Dias para vencimento
@@ -113,7 +113,7 @@ table fCarteira
 
 	column 'Obrigações vencidas'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: fd17b8d6-f0cf-579f-b0bc-926f5e5b38d0
 		summarizeBy: none
 		sourceColumn: Obrigações vencidas
@@ -122,7 +122,7 @@ table fCarteira
 
 	column 'Ocorrências 12m'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 7f51e531-e3cc-50be-ae35-75228bf77d58
 		summarizeBy: none
 		sourceColumn: Ocorrências 12m
@@ -131,7 +131,7 @@ table fCarteira
 
 	column 'Ocorrências graves abertas'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 05e5a12d-fc75-5b7f-95e3-9c91d0416143
 		summarizeBy: none
 		sourceColumn: Ocorrências graves abertas
@@ -140,7 +140,7 @@ table fCarteira
 
 	column 'Pontos atenção'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: a7a74629-7848-509f-9953-c9406a64b2df
 		summarizeBy: none
 		sourceColumn: Pontos atenção
@@ -166,7 +166,7 @@ table fCarteira
 	column 'Ordem atenção'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: 4960d453-3e17-53b6-9679-d970cb7b0238
 		summarizeBy: none
 		sourceColumn: Ordem atenção
@@ -176,7 +176,7 @@ table fCarteira
 	column 'Ordem faixa'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: 6d11aea8-4472-5379-b90f-599ea81c1ad5
 		summarizeBy: none
 		sourceColumn: Ordem faixa
@@ -195,3 +195,4 @@ table fCarteira
 					Passo1
 
 	annotation PBI_ResultType = Table
+

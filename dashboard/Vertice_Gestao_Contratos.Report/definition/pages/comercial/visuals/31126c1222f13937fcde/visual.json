@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "31126c1222f13937fcde",
   "position": {
-    "x": 565.3846153846154,
+    "x": 565.38461538461536,
     "y": 180.13513513513513,
     "z": 42000,
     "height": 249.72972972972974,
-    "width": 346.9230769230769,
+    "width": 346.92307692307691,
     "tabOrder": 42000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "dSegmento.Segmento",
-              "nativeQueryRef": "Segmento"
+              "nativeQueryRef": "Segmento",
+              "active": true
             }
           ]
         },
@@ -66,8 +67,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

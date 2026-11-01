@@ -13,7 +13,7 @@ table dEtapa
 	column 'Ordem etapa'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: f296ed3d-d31a-5718-9c1d-20ad0d5da88a
 		summarizeBy: none
 		sourceColumn: Ordem etapa
@@ -31,3 +31,4 @@ table dEtapa
 					Indice
 
 	annotation PBI_ResultType = Table
+

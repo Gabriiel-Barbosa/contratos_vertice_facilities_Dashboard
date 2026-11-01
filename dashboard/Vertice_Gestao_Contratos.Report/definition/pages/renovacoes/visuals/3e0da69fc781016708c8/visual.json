@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "3e0da69fc781016708c8",
   "position": {
-    "x": 742.2307692307693,
+    "x": 742.23076923076928,
     "y": 180.13513513513513,
     "z": 42000,
     "height": 223.71621621621622,
-    "width": 523.7692307692307,
+    "width": 523.76923076923072,
     "tabOrder": 42000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "fRenovacoes.Marco vigente",
-              "nativeQueryRef": "Marco vigente"
+              "nativeQueryRef": "Marco vigente",
+              "active": true
             }
           ]
         },
@@ -66,8 +67,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

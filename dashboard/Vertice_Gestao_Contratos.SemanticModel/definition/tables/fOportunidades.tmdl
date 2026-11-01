@@ -51,7 +51,7 @@ table fOportunidades
 
 		annotation SummarizationSetBy = User
 
-	column 'Município'
+	column Município
 		dataType: string
 		lineageTag: 2ab27e9a-3b07-5924-afa0-81b9b9c0c51c
 		summarizeBy: none
@@ -61,7 +61,7 @@ table fOportunidades
 
 	column 'Valor estimado mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 770e0c18-2072-5be3-996c-85b8f9f50206
 		summarizeBy: none
 		sourceColumn: Valor estimado mensal
@@ -70,7 +70,7 @@ table fOportunidades
 
 	column 'Valor proposto mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 516b701f-d85d-5bef-b998-ab7a64936e67
 		summarizeBy: none
 		sourceColumn: Valor proposto mensal
@@ -79,7 +79,7 @@ table fOportunidades
 
 	column Probabilidade
 		dataType: double
-		formatString: "0%"
+		formatString: 0%
 		lineageTag: e95ed4dd-4645-5af6-a45a-f2db95e5229f
 		summarizeBy: none
 		sourceColumn: Probabilidade
@@ -88,14 +88,16 @@ table fOportunidades
 
 	column 'Prazo proposta'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 536adbb7-5e8a-57b7-8ba7-b5a2199ea982
 		summarizeBy: none
 		sourceColumn: Prazo proposta
 
 		annotation SummarizationSetBy = User
 
-	column 'Responsável'
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Responsável
 		dataType: string
 		lineageTag: 040627a6-2193-5304-8183-924407578a21
 		summarizeBy: none
@@ -130,7 +132,7 @@ table fOportunidades
 
 	column 'Preço vencedor mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: f5cfce47-1ea9-52e7-956a-32556204e91d
 		summarizeBy: none
 		sourceColumn: Preço vencedor mensal
@@ -148,17 +150,19 @@ table fOportunidades
 
 	column 'Data última atualização'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 981a64cb-daa7-5203-80b4-f7313bc09ee9
 		summarizeBy: none
 		sourceColumn: Data última atualização
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column Aberta
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: bd5e96d1-48cd-5c13-be18-b753c1cc5175
 		summarizeBy: none
 		sourceColumn: Aberta
@@ -167,7 +171,7 @@ table fOportunidades
 
 	column 'Valor anual estimado'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 9887c379-3f4c-5fde-a1f7-c48318aafcf5
 		summarizeBy: none
 		sourceColumn: Valor anual estimado
@@ -176,7 +180,7 @@ table fOportunidades
 
 	column 'Valor anual ponderado'
 		dataType: double
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: a4df83cb-e1a9-51a1-ad28-0f8c83c5dfb1
 		summarizeBy: none
 		sourceColumn: Valor anual ponderado
@@ -185,7 +189,7 @@ table fOportunidades
 
 	column 'Margem prevista'
 		dataType: double
-		formatString: "0.0%"
+		formatString: 0.0%
 		lineageTag: 5b716ec0-45ac-5fdd-bcac-1a30687eb4e0
 		summarizeBy: none
 		sourceColumn: Margem prevista
@@ -202,16 +206,18 @@ table fOportunidades
 
 	column 'Próximo prazo'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 5bcc7160-6daf-58af-8c42-4d601dc113c2
 		summarizeBy: none
 		sourceColumn: Próximo prazo
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column 'Dias próximo prazo'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: a450e0cc-fe1a-58e0-ad96-83ca7b518620
 		summarizeBy: none
 		sourceColumn: Dias próximo prazo
@@ -220,7 +226,7 @@ table fOportunidades
 
 	column 'Dias sem atualização'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: d3353a83-35cc-587f-aaa2-c79602abb717
 		summarizeBy: none
 		sourceColumn: Dias sem atualização
@@ -238,7 +244,7 @@ table fOportunidades
 	column 'Ordem prazo'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 769651c3-6256-556a-af34-6fd78a140236
 		summarizeBy: none
 		sourceColumn: Ordem prazo
@@ -256,3 +262,4 @@ table fOportunidades
 					Tipos
 
 	annotation PBI_ResultType = Table
+

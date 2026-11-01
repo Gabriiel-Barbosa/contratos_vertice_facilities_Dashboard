@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Vertice_Gestao_Contratos"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ffce291e-c768-4c9f-bf31-f583da6b4825"
+  }
+}

@@ -5,16 +5,18 @@ table dCalendario
 	column Data
 		dataType: dateTime
 		isKey
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 882dd54b-b5c1-59ca-ae4e-3bd2ee4bced0
 		summarizeBy: none
 		sourceColumn: Data
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column Ano
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 110963ff-68d2-5888-af0a-8c2eb914812f
 		summarizeBy: none
 		sourceColumn: Ano
@@ -33,7 +35,7 @@ table dCalendario
 	column 'Ano Trimestre'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: bd00a28a-0e0b-584c-b469-52f068a95e4d
 		summarizeBy: none
 		sourceColumn: Ano Trimestre
@@ -43,14 +45,14 @@ table dCalendario
 	column 'Ano Mês'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: 42ed58cf-1741-5f0a-8423-9338ceb26a1e
 		summarizeBy: none
 		sourceColumn: Ano Mês
 
 		annotation SummarizationSetBy = User
 
-	column 'Mês'
+	column Mês
 		dataType: string
 		lineageTag: 8abe9db1-b097-5dea-bd72-b0dc106de60f
 		summarizeBy: none
@@ -59,14 +61,16 @@ table dCalendario
 
 		annotation SummarizationSetBy = User
 
-	column 'Competência'
+	column Competência
 		dataType: dateTime
-		formatString: "mmm/yy"
+		formatString: mmm/yy
 		lineageTag: 2767e75e-ae81-55af-aff6-c7aca3ea42a6
 		summarizeBy: none
 		sourceColumn: Competência
 
 		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition dCalendario = m
 		mode: import
@@ -86,3 +90,4 @@ table dCalendario
 					Competencia
 
 	annotation PBI_ResultType = Table
+

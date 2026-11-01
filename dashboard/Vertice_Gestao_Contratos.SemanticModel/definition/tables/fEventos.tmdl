@@ -36,16 +36,18 @@ table fEventos
 
 	column 'Data base'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: e4f815e0-7e93-50bf-a417-2c41de23cd86
 		summarizeBy: none
 		sourceColumn: Data base
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column Percentual
 		dataType: double
-		formatString: "0.0%"
+		formatString: 0.0%
 		lineageTag: 8c300a1b-ebfb-57a2-9acf-92fc989fb6ea
 		summarizeBy: none
 		sourceColumn: Percentual
@@ -54,7 +56,7 @@ table fEventos
 
 	column 'Valor anterior'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 89e1d9af-eff3-53e2-ab5c-ce7292994aa6
 		summarizeBy: none
 		sourceColumn: Valor anterior
@@ -71,7 +73,7 @@ table fEventos
 
 	column 'Novo valor'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 965acc4c-62d9-5d72-97b9-2670581252d7
 		summarizeBy: none
 		sourceColumn: Novo valor
@@ -80,7 +82,7 @@ table fEventos
 
 	column 'Acréscimo mensal'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 40ce7804-3418-5af4-8b1f-aa7deffe42c1
 		summarizeBy: none
 		sourceColumn: Acréscimo mensal
@@ -90,7 +92,7 @@ table fEventos
 	column Aberto
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: bd57ce5d-cb87-55fb-ae22-f65bef5a6ed3
 		summarizeBy: none
 		sourceColumn: Aberto
@@ -99,7 +101,7 @@ table fEventos
 
 	column 'Meses desde data base'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: bbb0f98b-8fdc-5acb-b9a5-0f5b3ae41650
 		summarizeBy: none
 		sourceColumn: Meses desde data base
@@ -108,7 +110,7 @@ table fEventos
 
 	column 'Retroativo estimado'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 51f5abcf-d2c8-5a6c-a0f2-cc2e3099ccc0
 		summarizeBy: none
 		sourceColumn: Retroativo estimado
@@ -126,3 +128,4 @@ table fEventos
 					Tipos
 
 	annotation PBI_ResultType = Table
+

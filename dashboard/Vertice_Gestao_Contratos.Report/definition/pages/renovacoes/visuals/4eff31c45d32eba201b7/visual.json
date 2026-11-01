@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "4eff31c45d32eba201b7",
   "position": {
-    "x": 210.0,
-    "y": 414.2567567567568,
+    "x": 210,
+    "y": 414.25675675675677,
     "z": 43000,
-    "height": 275.7432432432432,
-    "width": 1056.0,
+    "height": 275.74324324324323,
+    "width": 1056,
     "tabOrder": 43000
   },
   "visual": {
@@ -152,8 +152,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {
@@ -648,7 +647,6 @@
           }
         },
         "type": "Categorical",
-        "howCreated": "User",
         "filter": {
           "Version": 2,
           "From": [
@@ -687,7 +685,8 @@
               }
             }
           ]
-        }
+        },
+        "howCreated": "User"
       }
     ]
   }

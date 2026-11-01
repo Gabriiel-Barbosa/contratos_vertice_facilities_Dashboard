@@ -51,9 +51,10 @@ relationship 19abcf7d-9459-575a-8bd0-b838837ae96d
 	toColumn: dContrato.'ID contrato'
 
 relationship 376b45a6-9088-5f7d-9a9f-bef1625473bd
-	fromColumn: fFinanceiro.'Competência'
+	fromColumn: fFinanceiro.Competência
 	toColumn: dCalendario.Data
 
 relationship e8fe33f0-7ba7-546f-8285-97ca51a138fe
 	fromColumn: fEncerrados.'Data encerramento'
 	toColumn: dCalendario.Data
+

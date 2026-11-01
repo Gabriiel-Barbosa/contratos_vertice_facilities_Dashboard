@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "fc2764e56fed627471f3",
   "position": {
-    "x": 210.0,
+    "x": 210,
     "y": 180.13513513513513,
     "z": 41000,
     "height": 223.71621621621622,
-    "width": 523.7692307692307,
+    "width": 523.76923076923072,
     "tabOrder": 41000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "fCarteira.Faixa vigência",
-              "nativeQueryRef": "Faixa vigência"
+              "nativeQueryRef": "Faixa vigência",
+              "active": true
             }
           ]
         },
@@ -66,8 +67,7 @@
             },
             "direction": "Ascending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

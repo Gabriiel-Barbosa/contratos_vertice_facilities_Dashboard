@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "f84c9b62211bef85e0c3",
   "position": {
     "x": 18,
@@ -28,6 +28,7 @@
               },
               "queryRef": "dCliente.Nome fantasia",
               "nativeQueryRef": "Nome fantasia",
+              "active": true,
               "displayName": "Cliente"
             }
           ]
@@ -117,28 +118,10 @@
                 }
               }
             },
-            "outline": {
-              "expr": {
-                "Literal": {
-                  "Value": "'None'"
-                }
-              }
-            },
             "outlineStyle": {
               "expr": {
                 "Literal": {
                   "Value": "0D"
-                }
-              }
-            },
-            "outlineColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#24566A'"
-                    }
-                  }
                 }
               }
             },

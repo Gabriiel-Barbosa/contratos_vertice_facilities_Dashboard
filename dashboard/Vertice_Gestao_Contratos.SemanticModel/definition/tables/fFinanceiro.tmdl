@@ -1,15 +1,17 @@
 table fFinanceiro
 	lineageTag: 02707662-bcf9-5bff-b4f1-0c52b15de7f4
 
-	column 'Competência'
+	column Competência
 		dataType: dateTime
 		isHidden
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 9e8faaa6-92a7-5abc-8bc7-cb25c17e4eac
 		summarizeBy: none
 		sourceColumn: Competência
 
 		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column 'ID contrato'
 		dataType: string
@@ -23,7 +25,7 @@ table fFinanceiro
 	column 'Receita prevista'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: 950244d4-58c1-569a-a410-20038cf9c6ea
 		summarizeBy: none
 		sourceColumn: Receita prevista
@@ -33,7 +35,7 @@ table fFinanceiro
 	column 'Receita faturada'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 8b8123ff-49c2-5e90-83fa-4199778cd8ac
 		summarizeBy: none
 		sourceColumn: Receita faturada
@@ -43,7 +45,7 @@ table fFinanceiro
 	column 'Receita recebida'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 070c10d3-8948-50d8-8bb0-0da553434aee
 		summarizeBy: none
 		sourceColumn: Receita recebida
@@ -53,7 +55,7 @@ table fFinanceiro
 	column 'Custo mão obra'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: da51ab8b-9689-5f8d-8281-ae8d2835a58b
 		summarizeBy: none
 		sourceColumn: Custo mão obra
@@ -63,7 +65,7 @@ table fFinanceiro
 	column 'Benefícios encargos'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 326df289-cdc4-5e67-96aa-a419b6cbc733
 		summarizeBy: none
 		sourceColumn: Benefícios encargos
@@ -73,7 +75,7 @@ table fFinanceiro
 	column 'Materiais insumos'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: c5370ce9-9916-551c-9c81-d6564b468769
 		summarizeBy: none
 		sourceColumn: Materiais insumos
@@ -83,7 +85,7 @@ table fFinanceiro
 	column Equipamentos
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 19fe7920-bec4-5aee-ae6c-26bd9342bc40
 		summarizeBy: none
 		sourceColumn: Equipamentos
@@ -93,7 +95,7 @@ table fFinanceiro
 	column 'Outros custos diretos'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 25f42923-f180-57d4-bea9-5a39ffcb1bdd
 		summarizeBy: none
 		sourceColumn: Outros custos diretos
@@ -103,7 +105,7 @@ table fFinanceiro
 	column 'Custo total'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 130fc959-e2c1-5596-864f-b4fc02859e97
 		summarizeBy: none
 		sourceColumn: Custo total
@@ -113,7 +115,7 @@ table fFinanceiro
 	column 'Margem estimada'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 2a35264d-a203-56f3-9f12-fa629475ae80
 		summarizeBy: none
 		sourceColumn: Margem estimada
@@ -131,3 +133,4 @@ table fFinanceiro
 					Tipos
 
 	annotation PBI_ResultType = Table
+

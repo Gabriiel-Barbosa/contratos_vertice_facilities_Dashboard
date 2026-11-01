@@ -8,6 +8,10 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
+annotation PBI_QueryOrder = ["dCliente","dSegmento","dContrato","dCalendario","dEtapa","Parametros","fCarteira","fItens","fFinanceiro","fEventos","fObrigacoes","fOcorrencias","fRenovacoes","fOportunidades","fEncerrados","_Medidas","CaminhoArquivo","Fonte"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table dCliente
 ref table dSegmento
 ref table dContrato
@@ -24,3 +28,6 @@ ref table fRenovacoes
 ref table fOportunidades
 ref table fEncerrados
 ref table _Medidas
+
+ref cultureInfo pt-BR
+

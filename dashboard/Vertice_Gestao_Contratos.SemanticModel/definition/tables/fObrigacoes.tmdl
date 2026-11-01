@@ -18,7 +18,7 @@ table fObrigacoes
 
 		annotation SummarizationSetBy = User
 
-	column 'Descrição'
+	column Descrição
 		dataType: string
 		lineageTag: 29820537-d382-5de4-8266-cab2ad6eed77
 		summarizeBy: none
@@ -34,7 +34,7 @@ table fObrigacoes
 
 		annotation SummarizationSetBy = User
 
-	column 'Responsável'
+	column Responsável
 		dataType: string
 		lineageTag: 23f8bb1f-212c-5a0a-9bb5-977b2036ce14
 		summarizeBy: none
@@ -44,12 +44,14 @@ table fObrigacoes
 
 	column Prazo
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 5f04fd06-4b58-5dd8-8a99-4aa327564879
 		summarizeBy: none
 		sourceColumn: Prazo
 
 		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column Status
 		dataType: string
@@ -86,3 +88,4 @@ table fObrigacoes
 					Tipos
 
 	annotation PBI_ResultType = Table
+

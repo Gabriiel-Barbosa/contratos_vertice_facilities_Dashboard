@@ -108,6 +108,77 @@ Decisões de modelagem:
 - **Colunas técnicas ocultas:** chaves e campos de ordenação não aparecem para quem constrói os visuais.
 - **Data-base controlada:** prazos seguem o parâmetro `Data_Referencia`, nunca a data do computador.
 
+## Projeto em TMDL
+
+O relatório está salvo como projeto do Power BI (`.pbip`), em arquivos de texto, em vez de um único `.pbix` binário. O modelo semântico usa **TMDL** (Tabular Model Definition Language), a linguagem que descreve tabelas, colunas, medidas e relacionamentos de forma legível. As páginas e os visuais ficam em JSON, no formato PBIR.
+
+```text
+dashboard/
+├── Vertice_Gestao_Contratos.pbip
+├── Vertice_Gestao_Contratos.SemanticModel/
+│   └── definition/
+│       ├── model.tmdl            configurações do modelo
+│       ├── expressions.tmdl      parâmetro e fonte de dados
+│       ├── relationships.tmdl    relacionamentos
+│       └── tables/               uma tabela por arquivo
+└── Vertice_Gestao_Contratos.Report/
+    └── definition/pages/         páginas e visuais
+```
+
+Uma medida em TMDL fica assim:
+
+```text
+measure 'Margem %' = DIVIDE([Margem Mensal], [Receita Mensal Contratada])
+    formatString: 0.00%
+    displayFolder: 1. Carteira
+```
+
+Por que usei esse formato:
+
+- **Versionamento:** o Git mostra exatamente qual medida, coluna ou visual mudou.
+- **Revisão:** o modelo pode ser lido sem abrir o Power BI.
+- **Organização:** cada tabela fica em um arquivo, o que facilita localizar alterações.
+- **Portfólio:** quem visita o repositório consegue avaliar a modelagem direto no código.
+
+Os dados carregados ficam em `.pbi/cache.abf`, que não é versionado. Por isso o projeto precisa de uma atualização na primeira abertura.
+
+## Principais funções DAX
+
+O modelo tem 174 medidas, organizadas em pastas. A maior parte das regras vem pronta do Excel, então o DAX concentra agregação, contexto de filtro e apresentação.
+
+| Grupo | Funções | Medidas | Uso no projeto |
+|---|---|---|---|
+| Contexto de filtro | `CALCULATE` | 60 | Aplica condições como contrato vigente ou evento aberto |
+| Agregação | `SUM`, `COUNTROWS`, `DISTINCTCOUNT`, `AVERAGE` | 73 | Soma valores e conta registros |
+| Divisão segura | `DIVIDE` | 25 | Calcula margem e participação sem erro de divisão por zero |
+| Variáveis | `VAR` / `RETURN` | 18 | Deixa o cálculo legível e evita repetir expressões |
+| Datas | `DATE`, `EDATE`, `YEAR`, `MONTH`, `DATEADD` | 15 | Localiza a competência atual, o mês anterior e a janela de 12 meses |
+| Texto | `FORMAT`, `SELECTEDVALUE` | 49 | Monta subtítulos dos cartões e títulos dos tooltips |
+| Ranking | `TOPN`, `RANKX`, `SUMX`, `MAXX` | 8 | Calcula os cinco maiores clientes e as listas Top 4 |
+| Controle de filtros | `ALL`, `ALLSELECTED`, `KEEPFILTERS`, `FILTER`, `VALUES`, `CROSSFILTER` | 16 | Define o total de referência e respeita a seleção do usuário |
+| Lógica | `IF`, `SWITCH`, `COALESCE`, `ISBLANK` | 24 | Define cores de status, setas e textos alternativos |
+
+A coluna **Medidas** mostra em quantas medidas ao menos uma função do grupo aparece. Como uma medida usa várias funções, os valores não somam 174.
+
+Três exemplos do modelo:
+
+```dax
+-- Receita somente dos contratos vigentes
+Receita Mensal Contratada =
+CALCULATE(SUM(fCarteira[Valor mensal]), fCarteira[Vigente] = 1)
+
+-- Receita dos cinco maiores clientes, respeitando os filtros
+Receita Top 5 Clientes =
+SUMX(
+    TOPN(5, VALUES(dCliente[Cliente ID]), [Receita Mensal Contratada], DESC),
+    [Receita Mensal Contratada]
+)
+
+-- Variação do faturamento contra o mês anterior
+TT Var Faturada =
+DIVIDE([Receita Faturada], CALCULATE([Receita Faturada], DATEADD(dCalendario[Data], -1, MONTH))) - 1
+```
+
 ## Experiência de uso
 
 - **Navegação por categoria:** barra lateral com as seis telas.
@@ -157,4 +228,4 @@ O dashboard é uma ferramenta gerencial sobre dados simulados. Não substitui ER
 
 ## Competências demonstradas
 
-Modelagem dimensional, Power Query, DAX, design de relatórios, indicadores gerenciais, gestão de contratos, análise financeira e gestão de riscos.
+Modelagem dimensional, Power Query, DAX, TMDL, versionamento com Git, design de relatórios, indicadores gerenciais, gestão de contratos, análise financeira e gestão de riscos.

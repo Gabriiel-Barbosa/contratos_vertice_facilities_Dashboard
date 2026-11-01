@@ -20,16 +20,18 @@ table fRenovacoes
 
 	column Vencimento
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 94c4aed5-ffc1-5a83-96b3-4e02b6d7044a
 		summarizeBy: none
 		sourceColumn: Vencimento
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column 'Valor mensal atual'
 		dataType: int64
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 30b5d77d-1099-5643-8be1-7ad514f82933
 		summarizeBy: none
 		sourceColumn: Valor mensal atual
@@ -38,12 +40,14 @@ table fRenovacoes
 
 	column 'Data limite decisão'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: fbbdd79c-52df-5d45-98a5-6fd42ddee063
 		summarizeBy: none
 		sourceColumn: Data limite decisão
 
 		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column 'Status renovação'
 		dataType: string
@@ -61,7 +65,7 @@ table fRenovacoes
 
 		annotation SummarizationSetBy = User
 
-	column 'Responsável'
+	column Responsável
 		dataType: string
 		lineageTag: 07def00b-1247-567b-9487-873c7ed94acb
 		summarizeBy: none
@@ -71,17 +75,19 @@ table fRenovacoes
 
 	column 'Data decisão'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: ab4744c8-5078-50be-88c0-c0b7d7abac0b
 		summarizeBy: none
 		sourceColumn: Data decisão
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column 'Valor renovado'
 		dataType: int64
 		isHidden
-		formatString: "\R$ #,0;-\R$ #,0"
+		formatString: \R$ #,0;-\R$ #,0
 		lineageTag: 418089bd-e312-582d-af7a-dd619df5de49
 		summarizeBy: none
 		sourceColumn: Valor renovado
@@ -99,7 +105,7 @@ table fRenovacoes
 	column Aberta
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: 4deb8e66-4ccf-5db8-be32-1ae270e31d6c
 		summarizeBy: none
 		sourceColumn: Aberta
@@ -108,7 +114,7 @@ table fRenovacoes
 
 	column 'Dias para vencimento'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 48500c9f-df70-5305-ad7e-0e9a495b3fc0
 		summarizeBy: none
 		sourceColumn: Dias para vencimento
@@ -117,7 +123,7 @@ table fRenovacoes
 
 	column 'Dias para limite'
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 3eccbe91-a8fd-55a4-8726-69e14813a10f
 		summarizeBy: none
 		sourceColumn: Dias para limite
@@ -143,7 +149,7 @@ table fRenovacoes
 	column 'Antecedência decisão dias'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: b9a31e3f-1215-551d-bd68-c8f6561f7255
 		summarizeBy: none
 		sourceColumn: Antecedência decisão dias
@@ -153,7 +159,7 @@ table fRenovacoes
 	column 'Ordem agenda'
 		dataType: double
 		isHidden
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 75d17431-d1b5-5ceb-be1a-4a63c7763fd9
 		summarizeBy: none
 		sourceColumn: Ordem agenda
@@ -171,3 +177,4 @@ table fRenovacoes
 					Tipos
 
 	annotation PBI_ResultType = Table
+

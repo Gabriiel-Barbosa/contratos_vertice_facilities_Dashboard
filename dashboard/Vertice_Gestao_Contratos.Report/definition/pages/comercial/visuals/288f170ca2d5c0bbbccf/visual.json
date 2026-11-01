@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "288f170ca2d5c0bbbccf",
   "position": {
-    "x": 920.7692307692307,
+    "x": 920.76923076923072,
     "y": 180.13513513513513,
     "z": 43000,
     "height": 249.72972972972974,
-    "width": 345.2307692307692,
+    "width": 345.23076923076923,
     "tabOrder": 43000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "fOportunidades.Motivo perda",
-              "nativeQueryRef": "Motivo perda"
+              "nativeQueryRef": "Motivo perda",
+              "active": true
             }
           ]
         },
@@ -66,8 +67,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

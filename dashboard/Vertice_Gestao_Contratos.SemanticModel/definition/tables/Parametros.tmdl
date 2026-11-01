@@ -1,19 +1,21 @@
 table Parametros
-	lineageTag: ca17b5ac-653b-55a7-872c-3a25ce2dca28
 	isHidden
+	lineageTag: ca17b5ac-653b-55a7-872c-3a25ce2dca28
 
 	column Data_Referencia
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: fd8505e3-2d77-5d85-9019-3c951350c7d6
 		summarizeBy: none
 		sourceColumn: Data_Referencia
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column Margem_Minima
 		dataType: double
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: f552a834-4161-5737-87a3-323ba0d4e05c
 		summarizeBy: none
 		sourceColumn: Margem_Minima
@@ -22,7 +24,7 @@ table Parametros
 
 	column Dias_Alerta
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: 72a07aa4-d956-5fe4-87f7-6185cb6e9ea1
 		summarizeBy: none
 		sourceColumn: Dias_Alerta
@@ -31,7 +33,7 @@ table Parametros
 
 	column Dias_Sem_Atualizacao
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: ca576e0d-fa1e-5aff-870e-094c217945c3
 		summarizeBy: none
 		sourceColumn: Dias_Sem_Atualizacao
@@ -40,7 +42,7 @@ table Parametros
 
 	column Pontos_Plano
 		dataType: int64
-		formatString: "0"
+		formatString: 0
 		lineageTag: d1075f70-79c7-5f60-b76b-e1b2c6553174
 		summarizeBy: none
 		sourceColumn: Pontos_Plano
@@ -49,7 +51,7 @@ table Parametros
 
 	column Relevancia_A
 		dataType: double
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 9d543019-fc63-56d0-a196-ad7c9eb2e04e
 		summarizeBy: none
 		sourceColumn: Relevancia_A
@@ -58,7 +60,7 @@ table Parametros
 
 	column Relevancia_B
 		dataType: double
-		formatString: "#,0.00"
+		formatString: #,0.00
 		lineageTag: 2a118635-a21b-592b-9736-c3c5dfa81c75
 		summarizeBy: none
 		sourceColumn: Relevancia_B
@@ -77,3 +79,4 @@ table Parametros
 					Tipos
 
 	annotation PBI_ResultType = Table
+

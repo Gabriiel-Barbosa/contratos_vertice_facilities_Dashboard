@@ -1,37 +1,18 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "7dc2a5240b0818b6227d",
   "position": {
-    "x": 743.0769230769231,
+    "x": 743.07692307692309,
     "y": 180.13513513513513,
     "z": 42000,
     "height": 249.72972972972974,
-    "width": 522.9230769230769,
+    "width": 522.92307692307691,
     "tabOrder": 42000
   },
   "visual": {
     "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "fOcorrencias"
-                    }
-                  },
-                  "Property": "Probabilidade"
-                }
-              },
-              "queryRef": "fOcorrencias.Probabilidade",
-              "nativeQueryRef": "Probabilidade",
-              "displayName": "Probabilidade"
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -47,7 +28,28 @@
               },
               "queryRef": "fOcorrencias.Impacto",
               "nativeQueryRef": "Impacto",
+              "active": true,
               "displayName": "Impacto"
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fOcorrencias"
+                    }
+                  },
+                  "Property": "Probabilidade"
+                }
+              },
+              "queryRef": "fOcorrencias.Probabilidade",
+              "nativeQueryRef": "Probabilidade",
+              "active": true,
+              "displayName": "Probabilidade"
             }
           ]
         },

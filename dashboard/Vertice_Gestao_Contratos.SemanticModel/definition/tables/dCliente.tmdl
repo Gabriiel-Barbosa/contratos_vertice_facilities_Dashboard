@@ -35,7 +35,7 @@ table dCliente
 
 		annotation SummarizationSetBy = User
 
-	column 'Município'
+	column Município
 		dataType: string
 		lineageTag: dc1fd3cd-4f8e-5228-a3fa-4e46917ac753
 		summarizeBy: none
@@ -63,7 +63,7 @@ table dCliente
 	column 'Prazo pagamento dias'
 		dataType: int64
 		isHidden
-		formatString: "0"
+		formatString: 0
 		lineageTag: cdfda67d-5fab-55c0-9efe-d61eec25123d
 		summarizeBy: none
 		sourceColumn: Prazo pagamento dias
@@ -97,3 +97,4 @@ table dCliente
 					Tipos
 
 	annotation PBI_ResultType = Table
+

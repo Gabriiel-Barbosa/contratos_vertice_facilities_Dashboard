@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "d6c9be38844f95c9e1b7",
   "position": {
-    "x": 210.0,
+    "x": 210,
     "y": 180.13513513513513,
     "z": 41000,
     "height": 509.86486486486484,
-    "width": 524.6153846153846,
+    "width": 524.61538461538464,
     "tabOrder": 41000
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "dContrato.Contrato",
-              "nativeQueryRef": "Contrato"
+              "nativeQueryRef": "Contrato",
+              "active": true
             }
           ]
         },
@@ -66,8 +67,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": false
+        ]
       }
     },
     "objects": {

@@ -43,7 +43,7 @@ table dContrato
 
 		annotation SummarizationSetBy = User
 
-	column 'Município'
+	column Município
 		dataType: string
 		lineageTag: 80bbf7e8-8c86-543d-9d42-c667ba8c14d7
 		summarizeBy: none
@@ -61,23 +61,27 @@ table dContrato
 
 	column 'Início vigência'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 3d8bc05a-7fb1-5d13-94d9-b7cdf5b0bb89
 		summarizeBy: none
 		sourceColumn: Início vigência
 
 		annotation SummarizationSetBy = User
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column 'Fim vigência'
 		dataType: dateTime
-		formatString: "dd/mm/yyyy"
+		formatString: dd/mm/yyyy
 		lineageTag: 88cef492-d312-53ae-9619-5c1800f1c49c
 		summarizeBy: none
 		sourceColumn: Fim vigência
 
 		annotation SummarizationSetBy = User
 
-	column 'Situação'
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Situação
 		dataType: string
 		lineageTag: f180d315-2c0f-574a-a5e7-c0d1eb83b595
 		summarizeBy: none
@@ -119,3 +123,4 @@ table dContrato
 					Rotulo
 
 	annotation PBI_ResultType = Table
+
